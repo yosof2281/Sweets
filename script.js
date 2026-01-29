@@ -268,3 +268,58 @@ renderCart();
 
 /* Expose for debugging */
 window.app = { menuItems, cart, addToCart, renderCart };
+/* Oval social buttons (ضع هذا في styles.css) */
+.social-ovals{
+  display:flex;
+  gap:0.8rem;
+  justify-content:flex-start; /* في RTL سيظهر من اليمين */
+  align-items:center;
+  margin-top:0.9rem;
+  flex-wrap:wrap;
+}
+
+.oval-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  padding:0.6rem 1.4rem;
+  border-radius:36px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  font-family:"Cairo", sans-serif;
+  background:var(--maroon);
+  box-shadow: 0 10px 0 rgba(0,0,0,0.08);
+  border:0;
+  transition: transform .12s ease, box-shadow .12s ease;
+  white-space:nowrap;
+}
+
+.oval-btn svg{
+  display:block;
+  flex-shrink:0;
+}
+
+/* hover / active */
+.oval-btn:active,
+.oval-btn:focus,
+.oval-btn:hover{
+  transform: translateY(2px);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.06);
+  outline:none;
+}
+
+/* Instagram gradient */
+.oval-btn.ig{
+  background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af);
+}
+
+/* Facebook color (اختياري، أو اترك المارون) */
+.oval-btn.fb{
+  background: #3b5998;
+}
+
+/* Small screens */
+@media (max-width:420px){
+  .oval-btn{ padding:0.5rem 1rem; font-size:0.96rem; border-radius:32px; gap:0.5rem; }
+}
