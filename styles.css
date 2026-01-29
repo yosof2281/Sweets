@@ -281,3 +281,119 @@ body{
   .cart-list-wrap{ flex:1 }
   .customer-form{ width: 360px }
 }
+/* ===== Hero style (ضع هذا في نهاية styles.css) ===== */
+
+:root{
+  --maroon: #7a0006;
+  --gold: #f2c200;
+  --panel-bg: #fffaf8;
+  --soft-bg: #fbf6f4;
+  --muted: #8b6b6b;
+}
+
+.hero{
+  position: relative;
+  padding: 3.5rem 0;
+  background: linear-gradient(180deg, rgba(255,250,248,1) 0%, rgba(255,255,255,1) 60%);
+}
+
+.hero-bg{
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 160px;
+  background-image: url('images/crown.png'); /* ضع صورة التاج هنا */
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+  filter: saturate(1.1);
+}
+
+.hero-panel{
+  max-width: 920px;
+  margin: 0 auto;
+  background: var(--panel-bg);
+  border-radius: 12px;
+  box-shadow: 0 6px 0 rgba(122,0,6,0.06);
+  padding: 4.2rem 2.4rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(122,0,6,0.06);
+}
+
+.hero-inner{
+  text-align: center;
+  direction: rtl;
+}
+
+.brand-title{
+  font-family: "Amiri", serif;
+  color: var(--maroon);
+  font-size: 3rem;
+  margin: 0 0 0.6rem;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+  display: inline-block;
+}
+
+.brand-crown{
+  display: inline-block;
+  margin-inline-start: 0.6rem;
+  transform: translateY(-6px) scale(1.05);
+  font-size: 1.1rem;
+  filter: drop-shadow(0 2px 0 rgba(0,0,0,0.06));
+  color: var(--gold);
+}
+
+.hero-divider{
+  width: 70px;
+  height: 8px;
+  background: var(--gold);
+  margin: 0.6rem auto;
+  border-radius: 8px;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.04);
+}
+
+.hero-welcome{
+  color: var(--maroon);
+  font-size: 1.1rem;
+  margin: 0.8rem 0 0.2rem;
+}
+
+.hero-sub{
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.btn.cta-btn{
+  display: inline-block;
+  background: var(--maroon);
+  color: #fff;
+  padding: 0.9rem 1.6rem;
+  border-radius: 36px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 0 rgba(122,0,6,0.12);
+  border: 0;
+  transition: transform .12s ease, box-shadow .12s ease;
+  font-family: "Cairo", sans-serif;
+}
+
+.btn.cta-btn:active,
+.btn.cta-btn:focus,
+.btn.cta-btn:hover{
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.06);
+}
+
+@media (max-width:700px){
+  .brand-title{ font-size: 2.1rem; }
+  .hero-panel{ padding: 3rem 1.4rem; }
+  .hero-bg{ width: 220px; height: 110px; top:-40px; opacity:0.11; }
+  .btn.cta-btn{ padding:0.7rem 1.2rem; }
+}
