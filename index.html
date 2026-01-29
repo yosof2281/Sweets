@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>حلويات أبو السعود</title>
+
+  <!-- Vintage Arabic fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#800000">
+</head>
+<body>
+  <!-- 
+    Mobile-first RTL vintage layout inspired exactly by the provided screenshot.
+    Files: index.html, styles.css, script.js
+    To use the photos you uploaded, save them as: images/dolma.jpg (first image) and images/pistachio.jpg (second image)
+  -->
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="site-title">حلويات أبو السعود</h1>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / Welcome (big title + small gold underline + welcome text + CTA) -->
+    <section id="home" class="hero">
+      <div class="container hero-card">
+        <h2 class="hero-title">حلويات أبو السعود</h2>
+        <div class="hero-underline" aria-hidden="true"></div>
+        <p class="hero-sub">أهلاً بكم</p>
+        <p class="hero-desc">حيث يجتمع الطعم الأصيل مع الفخامة في كل قطعة</p>
+
+        <div class="hero-cta-wrap">
+          <button class="btn cta-btn" id="scroll-to-menu">تصفح القائمة</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+      <div class="container">
+        <h3 class="section-heading">قائمتنا المميزة</h3>
+        <p class="section-sub">اختر من أشهى حلوياتنا الشرقية</p>
+
+        <div id="menu-grid" class="menu-grid">
+          <!-- Cards are generated dynamically by script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Order / Cart -->
+    <section id="order" class="order-section">
+      <div class="container">
+        <div class="cart-panel">
+          <div class="cart-icon">🧾</div>
+          <div class="cart-content">
+            <h4>سلة الطلبات فارغة</h4>
+            <p class="cart-note">أضف بعض المنتجات للبدء في الطلب</p>
+          </div>
+        </div>
+
+        <div class="order-panel">
+          <div class="cart-list-wrap">
+            <ul id="cart-items" class="cart-list">
+              <!-- cart items rendered here -->
+            </ul>
+            <div class="order-total">
+              <span>الإجمالي</span>
+              <strong id="total-price">0 ج.م</strong>
+            </div>
+          </div>
+
+          <form id="customer-form" class="customer-form" autocomplete="on">
+            <label class="field">
+              <span>الاسم</span>
+              <input id="customer-name" type="text" required placeholder="اسمك">
+            </label>
+
+            <label class="field">
+              <span>رقم الهاتف</span>
+              <input id="customer-phone" type="tel" required placeholder="0112xxxxxxx" pattern="[0-9+\s\-()]{6,}">
+            </label>
+
+            <label class="field">
+              <span>العنوان</span>
+              <textarea id="customer-address" rows="3" required placeholder="العنوان الكامل"></textarea>
+            </label>
+
+            <button type="button" id="place-order" class="btn place-btn">أرسل الطلب عبر واتساب</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+      <div class="container contact-card">
+        <h4>تواصل معنا</h4>
+        <p>الهاتف: <a href="tel:01125933005">01125933005</a></p>
+        <p>
+          طلب سريع عبر واتساب:
+          <a class="btn whatsapp-btn" href="https://wa.me/201125933005" target="_blank">اطلب الآن</a>
+        </p>
+        <div class="socials">
+          <a href="#" target="_blank">إنستاغرام</a>
+          <a href="#" target="_blank">فيسبوك</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> حلويات أبو السعود — كل الحقوق محفوظة</small>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
