@@ -1,3 +1,5 @@
+
+
 * {
     margin: 0;
     padding: 0;
@@ -33,7 +35,7 @@ body {
 .divider {
     width: 100px;
     height: 5px;
-    background-color: #ffc107;
+    background-color: #d4af37;
     margin: 0 auto 30px;
     border-radius: 3px;
 }
@@ -52,23 +54,50 @@ body {
     max-width: 600px;
 }
 
-.btn-browse {
-    background-color: #8b1a1a;
-    color: white;
-    border: none;
-    padding: 16px 50px;
-    border-radius: 30px;
+/* أزرار مستديرة بحدود ذهبية */
+.btn-browse,
+.btn-back {
+    border: 2.5px solid #d4af37;
+    padding: 14px 40px;
+    border-radius: 50px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(139, 26, 26, 0.2);
+    background-color: transparent;
+    color: #d4af37;
+}
+
+.btn-browse {
+    padding: 16px 50px;
+    font-size: 16px;
+    background-color: #d4af37;
+    color: #8b1a1a;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 
 .btn-browse:hover {
-    background-color: #6b1515;
+    background-color: #c99e2e;
+    border-color: #c99e2e;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139, 26, 26, 0.3);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.btn-back {
+    color: #d4af37;
+    border-color: #d4af37;
+    margin-bottom: 40px;
+}
+
+.btn-back:hover {
+    background-color: #d4af37;
+    color: #8b1a1a;
+    transform: translateX(-5px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-back:active {
+    transform: translateX(-3px);
 }
 
 /* قسم الأقسام */
@@ -134,24 +163,6 @@ body {
     margin: 0 auto;
 }
 
-.btn-back {
-    background-color: #8b1a1a;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 40px;
-    transition: all 0.3s ease;
-}
-
-.btn-back:hover {
-    background-color: #6b1515;
-    transform: translateX(-5px);
-}
-
 #categoryTitle {
     font-size: 40px;
     color: #8b1a1a;
@@ -211,7 +222,7 @@ body {
 
 .product-price {
     font-size: 22px;
-    color: #ffc107;
+    color: #d4af37;
     font-weight: 700;
 }
 
@@ -253,6 +264,12 @@ body {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
+
+    .btn-browse,
+    .btn-back {
+        padding: 12px 30px;
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -275,5 +292,11 @@ body {
 
     .product-price {
         font-size: 20px;
+    }
+
+    .btn-browse,
+    .btn-back {
+        padding: 12px 25px;
+        font-size: 13px;
     }
 }
