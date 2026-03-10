@@ -16,71 +16,41 @@
         <button class="btn-browse">تصفح القائمة</button>
     </section>
 
-    <!-- قسم المشروبات -->
-    <section class="drinks-section">
-        <h2 class="section-title">المشروبات المميزة</h2>
-        <p class="section-subtitle">اختر مشروبك المفضل</p>
-        
-        <div class="drinks-grid">
-            <!-- مشروب 1: الاسموزي -->
-            <div class="drink-card">
-                <div class="drink-image">
-                    <img src="images/asmouzy.jpg" alt="اسموزي">
-                </div>
-                <h3 class="drink-name">الاسموزي</h3>
-                <p class="drink-price">25 ريال</p>
-                <button class="btn-add">أضف للسلة</button>
+    <!-- الأقسام الرئيسية -->
+    <section class="categories-section">
+        <div class="categories-grid">
+            <!-- قسم الاسموزي -->
+            <div class="category-card" data-category="asmouzy">
+                <img src="images/asmouzy-thumb.jpg" alt="اسموزي">
+                <h3>الاسموزي</h3>
             </div>
 
-            <!-- مشروب 2: الفرابيه -->
-            <div class="drink-card">
-                <div class="drink-image">
-                    <img src="images/frappe.jpg" alt="فرابيه">
-                </div>
-                <h3 class="drink-name">الفرابيه</h3>
-                <p class="drink-price">20 ريال</p>
-                <button class="btn-add">أضف للسلة</button>
+            <!-- قسم الفرابيه -->
+            <div class="category-card" data-category="frappe">
+                <img src="images/frappe-thumb.jpg" alt="فرابيه">
+                <h3>الفرابيه</h3>
             </div>
 
-            <!-- مشروب 3: الفرش -->
-            <div class="drink-card">
-                <div class="drink-image">
-                    <img src="images/fresh.jpg" alt="فرش">
-                </div>
-                <h3 class="drink-name">الفرش</h3>
-                <p class="drink-price">18 ريال</p>
-                <button class="btn-add">أضف للسلة</button>
+            <!-- قسم الفرش -->
+            <div class="category-card" data-category="fresh">
+                <img src="images/fresh-thumb.jpg" alt="فرش">
+                <h3>الفرش</h3>
             </div>
 
-            <!-- مشروب 4: القهوة العربية -->
-            <div class="drink-card">
-                <div class="drink-image">
-                    <img src="images/arabic-coffee.jpg" alt="قهوة عربية">
-                </div>
-                <h3 class="drink-name">القهوة العربية</h3>
-                <p class="drink-price">15 ريال</p>
-                <button class="btn-add">أضف للسلة</button>
+            <!-- قسم القهوة -->
+            <div class="category-card" data-category="coffee">
+                <img src="images/coffee-thumb.jpg" alt="قهوة">
+                <h3>القهوة</h3>
             </div>
+        </div>
+    </section>
 
-            <!-- مشروب 5: العصير الطازج -->
-            <div class="drink-card">
-                <div class="drink-image">
-                    <img src="images/juice.jpg" alt="عصير">
-                </div>
-                <h3 class="drink-name">العصير الطازج</h3>
-                <p class="drink-price">22 ريال</p>
-                <button class="btn-add">أضف للسلة</button>
-            </div>
-
-            <!-- مشروب 6: الشاي -->
-            <div class="drink-card">
-                <div class="drink-image">
-                    <img src="images/tea.jpg" alt="شاي">
-                </div>
-                <h3 class="drink-name">الشاي</h3>
-                <p class="drink-price">12 ريال</p>
-                <button class="btn-add">أضف للسلة</button>
-            </div>
+    <!-- عرض المنتجات -->
+    <section class="products-section hidden" id="productsSection">
+        <div class="products-container">
+            <button class="btn-back">← رجوع</button>
+            <h2 id="categoryTitle"></h2>
+            <div class="products-grid" id="productsGrid"></div>
         </div>
     </section>
 
