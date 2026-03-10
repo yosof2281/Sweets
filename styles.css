@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    direction: rtl;
+}
+
+/* القسم الرئيسي */
+.hero {
+    background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+    text-align: center;
+    padding: 80px 20px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 48px;
+    color: #8b1a1a;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+.divider {
+    width: 100px;
+    height: 5px;
+    background-color: #ffc107;
+    margin: 0 auto 30px;
+    border-radius: 3px;
+}
+
+.hero-subtitle {
+    font-size: 36px;
+    color: #8b1a1a;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.hero-description {
+    font-size: 18px;
+    color: #999;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+.btn-browse {
+    background-color: #8b1a1a;
+    color: white;
+    border: none;
+    padding: 16px 50px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 26, 26, 0.2);
+}
+
+.btn-browse:hover {
+    background-color: #6b1515;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 26, 26, 0.3);
+}
+
+/* قسم المشروبات */
+.drinks-section {
+    padding: 80px 20px;
+    background-color: #ffffff;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 40px;
+    color: #8b1a1a;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+    margin-bottom: 50px;
+}
+
+.drinks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.drink-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.drink-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 25px rgba(139, 26, 26, 0.15);
+}
+
+.drink-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.drink-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.drink-card:hover .drink-image img {
+    transform: scale(1.05);
+}
+
+.drink-name {
+    font-size: 22px;
+    color: #8b1a1a;
+    margin: 20px 0 10px;
+    font-weight: 600;
+}
+
+.drink-price {
+    font-size: 24px;
+    color: #ffc107;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.btn-add {
+    background-color: #8b1a1a;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    width: 85%;
+}
+
+.btn-add:hover {
+    background-color: #6b1515;
+    transform: scale(1.05);
+}
+
+.btn-add:active {
+    transform: scale(0.98);
+}
+
+/* قسم المميزات */
+.features-section {
+    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    padding: 80px 20px;
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.features-title {
+    font-size: 40px;
+    color: #8b1a1a;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.features-subtitle {
+    font-size: 18px;
+    color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .hero-subtitle {
+        font-size: 28px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .drinks-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .btn-browse {
+        padding: 14px 40px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 50px 15px;
+        min-height: 400px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .hero-subtitle {
+        font-size: 22px;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .drinks-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .drink-card {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+}
