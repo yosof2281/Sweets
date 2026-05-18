@@ -1,90 +1,150 @@
-// بيانات المنتجات لكل قسم
-const products = {
-    asmouzy: [
-        { name: 'اسموزي فراولة', price: '25 ريال', image: 'images/asmouzy-strawberry.jpg' },
-        { name: 'اسموزي مانجو', price: '25 ريال', image: 'images/asmouzy-mango.jpg' },
-        { name: 'اسموزي شوكولاتة', price: '27 ريال', image: 'images/asmouzy-chocolate.jpg' },
-        { name: 'اسموزي فانيليا', price: '25 ريال', image: 'images/asmouzy-vanilla.jpg' },
-        { name: 'اسموزي توت', price: '26 ريال', image: 'images/asmouzy-berry.jpg' },
-        { name: 'اسموزي جوز الهند', price: '26 ريال', image: 'images/asmouzy-coconut.jpg' }
-    ],
-    frappe: [
-        { name: 'فرابيه قهوة', price: '20 ريال', image: 'images/frappe-coffee.jpg' },
-        { name: 'فرابيه كراميل', price: '22 ريال', image: 'images/frappe-caramel.jpg' },
-        { name: 'فرابيه فانيليا', price: '20 ريال', image: 'images/frappe-vanilla.jpg' },
-        { name: 'فرابيه موكا', price: '23 ريال', image: 'images/frappe-mocha.jpg' },
-        { name: 'فرابيه شوكولاتة بيضاء', price: '22 ريال', image: 'images/frappe-white-choco.jpg' },
-        { name: 'فرابيه هازلنت', price: '23 ريال', image: 'images/frappe-hazelnut.jpg' }
-    ],
-    fresh: [
-        { name: 'فرش برتقال', price: '18 ريال', image: 'images/fresh-orange.jpg' },
-        { name: 'فرش رمان', price: '19 ريال', image: 'images/fresh-pomegranate.jpg' },
-        { name: 'فرش مانجو', price: '18 ريال', image: 'images/fresh-mango.jpg' },
-        { name: 'فرش أناناس', price: '18 ريال', image: 'images/fresh-pineapple.jpg' },
-        { name: 'فرش جوافة', price: '17 ريال', image: 'images/fresh-guava.jpg' },
-        { name: 'فرش مشكل', price: '20 ريال', image: 'images/fresh-mixed.jpg' }
-    ],
-    coffee: [
-        { name: 'قهوة عربية', price: '15 ريال', image: 'images/coffee-arabic.jpg' },
-        { name: 'قهوة تركية', price: '14 ريال', image: 'images/coffee-turkish.jpg' },
-        { name: 'كابتشينو', price: '18 ريال', image: 'images/coffee-cappuccino.jpg' },
-        { name: 'إسبريسو', price: '12 ريال', image: 'images/coffee-espresso.jpg' },
-        { name: 'لاتيه', price: '17 ريال', image: 'images/coffee-latte.jpg' },
-        { name: 'نسكافيه', price: '16 ريال', image: 'images/coffee-nescafe.jpg' }
-    ]
-};
+const maxGiftMoves = 6;     
+let giftMoveCount = 0;      
+let envelopeStage = 0; 
 
-// أسماء الأقسام بالعربية
-const categoryNames = {
-    asmouzy: 'الاسموزي',
-    frappe: 'الفرابيه',
-    fresh: 'الفرش',
-    coffee: 'القهوة'
-};
+// قلوب الخلفية
+function createHeart() {
+    const container = document.getElementById('hearts-container');
+    if (!container) return;
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    const duration = Math.random() * 2 + 3;
+    heart.style.setProperty('--duration', duration + 's');
+    const size = Math.random() * 20 + 15;
+    heart.style.fontSize = size + 'px';
+    container.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, duration * 1000);
+}
+setInterval(createHeart, 300);
 
-// الضغط على بطاقة القسم
-document.querySelectorAll('.category-card').forEach(card => {
-    card.addEventListener('click', function() {
-        const category = this.dataset.category;
-        displayProducts(category);
-    });
-});
+// 1. الهدية الهاربة
+function handleGiftClick() {
+    const giftContainer = document.getElementById('gift-container');
+    const btn = giftContainer.querySelector('.open-btn');
 
-// عرض المنتجات
-function displayProducts(category) {
-    const productsSection = document.getElementById('productsSection');
-    const categoryTitle = document.getElementById('categoryTitle');
-    const productsGrid = document.getElementById('productsGrid');
-    
-    categoryTitle.textContent = categoryNames[category];
-    productsGrid.innerHTML = '';
-    
-    products[category].forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.name}">
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">${product.price}</p>
-            </div>
-        `;
-        productsGrid.appendChild(productCard);
-    });
-    
-    productsSection.classList.remove('hidden');
-    productsSection.scrollIntoView({ behavior: 'smooth' });
+    if (giftMoveCount < maxGiftMoves) {
+        giftMoveCount++; 
+        const randomX = Math.random() * 60 + 20; 
+        const randomY = Math.random() * 60 + 20; 
+
+        giftContainer.style.position = 'absolute'; 
+        giftContainer.style.transition = 'all 0.3s ease-out'; 
+        giftContainer.style.left = randomX + 'vw';
+        giftContainer.style.top = randomY + 'vh';
+        giftContainer.style.transform = 'translate(-50%, -50%)'; 
+
+        if (giftMoveCount === 1) btn.innerText = "أوبس.. جربي تاني! 😜";
+        if (giftMoveCount === 2) btn.innerText = "لسه شوية.. قربتي اهه 👀";
+        if (giftMoveCount === 3) btn.innerText = "مش بالسهولة دي.. دوسي كمان مرة 🤣";
+        if (giftMoveCount === 4) btn.innerText = "يا بنتي اصبري هانت خلاص! 🏃‍♀️";
+        if (giftMoveCount === 5) btn.innerText = "دي آخر مرة بجد خلاص.. وعد! 🤐";
+        if (giftMoveCount === maxGiftMoves) btn.innerText = "😍";
+
+    } else {
+        giftContainer.style.display = 'none';
+        startCakeAnimation();
+    }
 }
 
-// زر الرجوع
-document.querySelector('.btn-back').addEventListener('click', function() {
-    document.getElementById('productsSection').classList.add('hidden');
-    document.querySelector('.categories-section').scrollIntoView({ behavior: 'smooth' });
-});
+// 🎂 2. تشغيل التورتة وظهور حبال الزينة الربع دائرية
+function startCakeAnimation() {
+    document.getElementById('cake-container').style.display = 'flex';
+    
+    document.getElementById('layer-1').classList.add('animate-layer');
+    document.getElementById('layer-2').classList.add('animate-layer');
+    document.getElementById('layer-3').classList.add('animate-layer');
+    document.getElementById('layer-4').classList.add('animate-layer');
+    document.getElementById('candle').classList.add('animate-layer');
 
-// الضغط على تصفح القائمة
-document.querySelector('.btn-browse').addEventListener('click', function() {
-    document.querySelector('.categories-section').scrollIntoView({ behavior: 'smooth' });
-});
+    // تفعيل حبال الزينة فور اكتمال التورتة
+    setTimeout(() => {
+        document.getElementById('left-garland').classList.add('active');
+        document.getElementById('right-garland').classList.add('active');
+        document.getElementById('cake-next-btn').style.display = 'inline-block';
+    }, 2400);
+}
+
+function goToEnvelope() {
+    document.getElementById('cake-container').style.display = 'none';
+    document.getElementById('envelope-container').style.display = 'flex';
+}
+
+// 💌 3. مرحلة فتح الظرف ورمي الصور
+function openEnvelope() {
+    const envelope = document.querySelector('.envelope');
+    const hintText = document.querySelector('.hint-text');
+
+    if (envelopeStage === 0) {
+        envelopeStage = 1;
+        envelope.classList.add('shake', 'torn');
+        setTimeout(() => { envelope.classList.remove('shake'); }, 400);
+        hintText.innerText = "أيوا كدة اتقطع اهه! ⚡ اضغطي كمان مرة عشان تفتحيه وتطّلعي الجواب 😉";
+    } 
+    else if (envelopeStage === 1) {
+        envelopeStage = 2;
+        envelope.classList.add('open');
+        hintText.innerText = "أول مفاجأة معنا! 📸✨";
+    }
+}
+
+function throwFirstPhoto(event) {
+    event.stopPropagation(); 
+    const step1 = document.getElementById('card-step-1');
+    const step2 = document.getElementById('card-step-2');
+    const hintText = document.querySelector('.hint-text');
+    
+    step1.classList.add('throw-left'); 
+    if(step1.querySelector('.click-hint')) step1.querySelector('.click-hint').style.display = 'none';
+    
+    step2.style.display = 'flex'; 
+    hintText.innerText = "يا جمالووو! شوفِ الصورة التانية كمان كدة كملي ضغط 😍✨";
+}
+
+function throwSecondPhoto(event) {
+    event.stopPropagation();
+    const step2 = document.getElementById('card-step-2');
+    const hintText = document.querySelector('.hint-text');
+    
+    step2.classList.add('throw-right'); 
+    if(step2.querySelector('.click-hint')) step2.querySelector('.click-hint').style.display = 'none';
+    
+    hintText.innerText = "كل سنة وأنتِ طيبة وفرحانة دايماً! 💌❤️";
+}
+
+function restart() {
+    giftMoveCount = 0;
+    envelopeStage = 0;
+    
+    const step1 = document.getElementById('card-step-1');
+    const step2 = document.getElementById('card-step-2');
+    step1.classList.remove('throw-left');
+    step2.classList.remove('throw-right');
+    step1.style.display = 'flex';
+    step2.style.display = 'none';
+    
+    document.getElementById('cake-next-btn').style.display = 'none';
+    document.getElementById('left-garland').classList.remove('active');
+    document.getElementById('right-garland').classList.remove('active');
+    
+    const cakeLayers = ['layer-1', 'layer-2', 'layer-3', 'layer-4', 'candle'];
+    cakeLayers.forEach(id => {
+        document.getElementById(id).classList.remove('animate-layer');
+    });
+    document.getElementById('cake-container').style.display = 'none';
+
+    const giftContainer = document.getElementById('gift-container');
+    giftContainer.style.position = 'relative';
+    giftContainer.style.left = 'auto';
+    giftContainer.style.top = 'auto';
+    giftContainer.style.transform = 'none';
+    giftContainer.querySelector('.open-btn').innerText = "اضغطي لفتح الهدية ✨";
+    
+    const envelopeContainer = document.getElementById('envelope-container');
+    envelopeContainer.querySelector('.envelope').classList.remove('open', 'torn', 'shake');
+    envelopeContainer.querySelector('.hint-text').innerText = "جالك جواب.. اضغطي على الظرف عشان تفتحي الجواب 😉";
+    
+    envelopeContainer.style.display = 'none';
+    giftContainer.style.display = 'block';
+}
