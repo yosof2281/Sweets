@@ -1,76 +1,102 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ابو السعود للحلويات | Abu Al-Saud Sweets منذ 1956</title>
+<!-- الحاوية الخاصة بالقلوب الطايرة في الخلفية -->
+<div id="hearts-container"></div>
 
-<meta name="description" content="محل ابو السعود للحلويات منذ 1956. أفضل الحلويات الشرقية والغربية.">
+<!-- 🎁 المرحلة الأولى: صندوق الهدية الكبيرة اللي بتهرب -->
+<div id="gift-container" class="gift-section">
+    <div class="gift-box">🎁</div>
+    <button onclick="handleGiftClick()" class="open-btn big-cute-btn">
+        اضغطي لفتح الهدية ✨
+    </button>
+</div>
 
-<meta name="keywords" content="ابو السعود للحلويات, حلويات شرقية, حلويات مصرية">
+<!-- 🎂 المرحلة الثانية: التورتة المعدلة وحبال الزينة ربع الدائرية -->
+<div id="cake-container" class="cake-section" style="display: none;">
+    <h2 class="cake-title">جاري تحضير مفاجأة حلوة... 🎂✨</h2>
+    
+    <!-- حبال زينة ربع دائرية في الأركان فوق -->
+    <div id="left-garland" class="garland left-side">
+        <div class="string-arc"></div>
+        <div class="flags-arc">
+            <span class="flag f1"></span>
+            <span class="flag f2"></span>
+            <span class="flag f3"></span>
+            <span class="flag f4"></span>
+        </div>
+    </div>
+    <div id="right-garland" class="garland right-side">
+        <div class="string-arc"></div>
+        <div class="flags-arc">
+            <span class="flag f4"></span>
+            <span class="flag f3"></span>
+            <span class="flag f2"></span>
+            <span class="flag f1"></span>
+        </div>
+    </div>
+    
+    <div class="cake-wrapper">
+        <!-- الشمعة المنورة -->
+        <div class="cake-layer candle-real" id="candle">
+            <div class="flame"></div>
+        </div>
+        
+        <!-- الطابق الرابع: فانيليا بيضاء (شيلنا السييلان الزيادة عشان النقطة اللي برة وظبطنا شكل الكريمة) -->
+        <div class="cake-layer layer-4-real" id="layer-4">
+            <div class="drip-top"></div>
+        </div>
+        
+        <!-- الطابق الثالث: فراولة بمبي بسييلان فانيليا بيضاء -->
+        <div class="cake-layer layer-3-real" id="layer-3">
+            <div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div><div class="drip d4"></div>
+        </div>
+        
+        <!-- الطابق الثاني: شوكولاتة بني بسييلان فراولة بمبي -->
+        <div class="cake-layer layer-2-real" id="layer-2">
+            <div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div><div class="drip d4"></div><div class="drip d5"></div>
+        </div>
+        
+        <!-- الطابق الأول: قاعدة الريد فيلفيت الكبيرة بسييلان شوكولاتة سايحة -->
+        <div class="cake-layer layer-1-real" id="layer-1">
+            <div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div><div class="drip d4"></div><div class="drip d5"></div><div class="drip d6"></div>
+        </div>
+    </div>
 
-<meta property="og:title" content="ابو السعود للحلويات منذ 1956">
-<meta property="og:description" content="أفضل الحلويات الشرقية والغربية">
-<meta property="og:type" content="website">
+    <!-- زرار الانتقال للمرحلة التالية -->
+    <button id="cake-next-btn" onclick="goToEnvelope()" class="big-cute-btn" style="display: none; margin-top: 30px;">
+        شوفِ اللي بعده كدة 😍 ⬅️
+    </button>
+</div>
 
-<link rel="icon" href="logo.png">
-
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- القسم الرئيسي -->
-    <section class="hero">
-        <h1 class="hero-title">حلويات أبو السعود</h1>
-        <div class="divider"></div>
-        <h2 class="hero-subtitle">أهلاً بكم</h2>
-        <p class="hero-description">حيث يجتمع الطعم الأصيل مع الشخامة في كل قطعة</p>
-        <button class="btn-browse">تصفح القائمة</button>
-    </section>
-
-    <!-- الأقسام الرئيسية -->
-    <section class="categories-section">
-        <div class="categories-grid">
-            <!-- قسم الاسموزي -->
-            <div class="category-card" data-category="asmouzy">
-                <img src="images/asmouzy-thumb.jpg" alt="اسموزي">
-                <h3>الاسموزي</h3>
+<!-- 💌 المرحلة الثالثة: ظرف الجواب والصور المرمية (مظبوط وثابت) -->
+<div id="envelope-container" class="envelope-section" style="display: none;">
+    <div class="envelope" onclick="openEnvelope()">
+        <div class="flap"><div class="tear-line"></div></div>
+        <div class="pocket"></div>
+        
+        <div class="letter custom-card">
+            <div id="card-step-3" class="card-step text-step">
+                <div class="card-text-content">
+                    <h1 class="title">كل سنة وأنتِ طيبة يا ست البنات! ✨</h1>
+                    <p class="text-content">
+                        اليوم ده مش يوم عادي خالص، ده اليوم اللي نورتِ فيه الدنيا بضحكتك. كل سنة وأنتِ منورة حياتنا، ويا رب سنة جديدة كلها روقان وفرحة وسعادة شبه قلبك الأبيض وخفة دمك. دايماً مبسوطة ومحققة كل اللي بتتمنيه. 🌸
+                    </p>
+                    <div class="tags-container">
+                        <span class="tag tag-pink">#أحلى_بنوته</span>
+                        <span class="tag tag-purple">#عيد_ميلاد_سعيد</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- قسم الفرابيه -->
-            <div class="category-card" data-category="frappe">
-                <img src="images/frappe-thumb.jpg" alt="فرابيه">
-                <h3>الفرابيه</h3>
+            <div id="card-step-2" class="card-step photo-step" style="display: none;" onclick="throwSecondPhoto(event)">
+                <img class="card-img" src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500" alt="Photo 2">
+                <p class="click-hint">✨ لسه في واحدة كمان! اضغطي هنا.. ✨</p>
             </div>
 
-            <!-- قسم الفرش -->
-            <div class="category-card" data-category="fresh">
-                <img src="images/fresh-thumb.jpg" alt="فرش">
-                <h3>الفرش</h3>
-            </div>
-
-            <!-- قسم القهوة -->
-            <div class="category-card" data-category="coffee">
-                <img src="images/coffee-thumb.jpg" alt="قهوة">
-                <h3>القهوة</h3>
+            <div id="card-step-1" class="card-step photo-step" onclick="throwFirstPhoto(event)">
+                <img class="card-img" src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=500" alt="Photo 1">
+                <p class="click-hint">✨ اضغطي على الصورة الأولى.. 👀 ✨</p>
             </div>
         </div>
-    </section>
-
-    <!-- عرض المنتجات -->
-    <section class="products-section hidden" id="productsSection">
-        <div class="products-container">
-            <button class="btn-back">← رجوع</button>
-            <h2 id="categoryTitle"></h2>
-            <div class="products-grid" id="productsGrid"></div>
-        </div>
-    </section>
-
-    <!-- قسم المميزات -->
-    <section class="features-section">
-        <h2 class="features-title">قائمتنا المميزة</h2>
-        <p class="features-subtitle">اكثر من أشهى حلويتنا الغربية</p>
-    </section>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    </div>
+    <p class="hint-text">جالك جواب.. اضغطي على الظرف عشان تفتحي الجواب 😉</p>
+    <button onclick="restart()" class="close-btn">ابدئي من الأول تاني</button>
+</div>
