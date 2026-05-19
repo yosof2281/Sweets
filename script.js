@@ -80,12 +80,12 @@ function openEnvelope() {
         envelopeStage = 1;
         envelope.classList.add('shake', 'torn');
         setTimeout(() => { envelope.classList.remove('shake'); }, 400);
-        hintText.innerText = "أيوا كدة اتقطع اهه! ⚡ اضغطي كمان مرة عشان تفتحيه وتطّلعي الجواب 😉";
+        hintText.innerText = "الفضول قاتلك عارف 😂";
     } 
     else if (envelopeStage === 1) {
         envelopeStage = 2;
         envelope.classList.add('open');
-        hintText.innerText = "أول مفاجأة معنا! 📸✨";
+        hintText.innerText = "";
     }
 }
 
@@ -99,7 +99,7 @@ function throwFirstPhoto(event) {
     if(step1.querySelector('.click-hint')) step1.querySelector('.click-hint').style.display = 'none';
     
     step2.style.display = 'flex'; 
-    hintText.innerText = "يا جمالووو! شوفِ الصورة التانية كمان كدة كملي ضغط 😍✨";
+    hintText.innerText = "";
 }
 
 function throwSecondPhoto(event) {
@@ -143,7 +143,7 @@ function restart() {
     
     const envelopeContainer = document.getElementById('envelope-container');
     envelopeContainer.querySelector('.envelope').classList.remove('open', 'torn', 'shake');
-    envelopeContainer.querySelector('.hint-text').innerText = "جالك جواب.. اضغطي على الظرف عشان تفتحي الجواب 😉";
+    envelopeContainer.querySelector('.hint-text').innerText = "Surprise😍";
     
     envelopeContainer.style.display = 'none';
     giftContainer.style.display = 'block';
