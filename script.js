@@ -35,11 +35,11 @@ function handleGiftClick() {
         giftContainer.style.top = randomY + 'vh';
         giftContainer.style.transform = 'translate(-50%, -50%)'; 
 
-        if (giftMoveCount === 1) btn.innerText = "أوبس.. جربي تاني! 😜";
-        if (giftMoveCount === 2) btn.innerText = "لسه شوية.. قربتي اهه 👀";
-        if (giftMoveCount === 3) btn.innerText = "مش بالسهولة دي.. دوسي كمان مرة 🤣";
-        if (giftMoveCount === 4) btn.innerText = "يا بنتي اصبري هانت خلاص! 🏃‍♀️";
-        if (giftMoveCount === 5) btn.innerText = "دي آخر مرة بجد خلاص.. وعد! 🤐";
+        if (giftMoveCount === 1) btn.innerText = "أوبس.. جربي تاني! ";
+        if (giftMoveCount === 2) btn.innerText = "لسه شوية.. قربتي اهه ";
+        if (giftMoveCount === 3) btn.innerText = "مش بالسهولة دي.. دوسي كمان مرة ";
+        if (giftMoveCount === 4) btn.innerText = "يا بنتي اصبري هانت خلاص! ";
+        if (giftMoveCount === 5) btn.innerText = "دي آخر مرة بجد خلاص.. وعد! ";
         if (giftMoveCount === maxGiftMoves) btn.innerText = "😍";
 
     } else {
