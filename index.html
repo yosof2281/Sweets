@@ -1,549 +1,768 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Abo El-Saud Sweets — حلويات أبو السعود للحلويات الغربية</title>
+  <title>Maison de Pâtisserie — Dark Luxury</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CDN -->
-  <script>
-    // Tailwind config for custom theme
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'lux-forest': '#1b2e1e',
-            'ivory': '#fdfbf7',
-            'lux-gold': '#cca464',
-            'lux-caramel': '#dfa85d'
-          },
-          fontFamily: {
-            serif: ['"Playfair Display"', 'serif'],
-            sans: ['Inter', 'ui-sans-serif', 'system-ui']
-          }
-        }
-      }
-    }
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts (luxury heading + clean body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Small extra styles for animations & refined visuals */
-    html,body { background: #fdfbf7; color: #111827; }
-    .nav-blur { background: rgba(255,255,255,0.26); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(26, 30, 28, 0.06); }
-    .pill-active { background: linear-gradient(90deg, rgba(204,164,100,0.12), rgba(223,168,93,0.06)); border-radius: 9999px; color: #1b2e1e; box-shadow: 0 6px 18px rgba(27,46,30,0.08); }
-    .btn-gold { background: linear-gradient(90deg,#cca464,#dfa85d); color: white; }
-    .card-gloss { background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35)); border: 1px solid rgba(27,46,30,0.04); }
-    .shadow-lux { box-shadow: 0 10px 30px rgba(27,46,30,0.06); }
-
-    /* reveal animation starting state */
-    [data-animate] { opacity: 0; transform: translateY(14px); will-change: transform, opacity; transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 700ms cubic-bezier(.2,.9,.2,1); }
-    [data-animate].in { opacity: 1; transform: translateY(0); }
-
-    /* fly-to-cart keyframes for small visual cue */
-    @keyframes flyToCart {
-      0% { transform: translate(0,0) scale(1); opacity: 1; }
-      60% { transform: translate(-30px,-120px) scale(.6); opacity: .9; }
-      100% { transform: translate(-60px,-200px) scale(.2); opacity: 0; }
+    :root{
+      --bg-start: #0f1911;
+      --bg-end: #142216;
+      --cream: #f4efe6;
+      --muted-cream: rgba(244,239,230,0.85);
+      --gold-start: #e5ba73;
+      --gold-end: #c59b4c;
+      --card-bg: rgba(25,40,28,0.6);
+      --card-border: rgba(197,155,76,0.12);
+      --accent-green: rgba(196,215,178,0.06);
+      --glass-blur: 8px;
+      --glass-border-strong: rgba(197,155,76,0.18);
+      --shadow-glow: 0 8px 30px rgba(197,155,76,0.15);
+      --glass-inner-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+      --max-width: 1200px;
+      --transition: 300ms cubic-bezier(.2,.9,.25,1);
     }
+
+    /* Page background: deep forest gradient with subtle radial lighting */
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--cream);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: radial-gradient(800px 400px at 85% 10%, rgba(197,155,76,0.04), transparent),
+                  radial-gradient(600px 300px at 20% 80%, rgba(20,34,26,0.12), transparent),
+                  linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      min-height:100%;
+      overflow-x:hidden;
+    }
+
+    a { color: var(--muted-cream); text-decoration: none; }
+    h1,h2,h3 { font-family: "Playfair Display", serif; color:var(--cream); margin:0 0 8px 0; }
+    p { margin:0 0 12px 0; color: var(--muted-cream); line-height:1.4; }
+
+    /* Container */
+    .container{
+      max-width:var(--max-width);
+      margin: 96px auto 64px;
+      padding: 0 20px;
+    }
+
+    /* Navbar: fluid, dark translucent */
+    .nav{
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: var(--max-width);
+      z-index: 1200;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 18px;
+      background: linear-gradient(180deg, rgba(20,30,24,0.28), rgba(10,14,10,0.22));
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 6px 30px rgba(4,6,4,0.55);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6), 0 0 18px rgba(197,155,76,0.06) inset;
+      flex-shrink:0;
+    }
+    .logo svg{ fill: var(--gold-start); filter: drop-shadow(0 2px 8px rgba(229,186,115,0.15)); width:34px;height:34px; }
+
+    .brand h1{ font-size:18px; letter-spacing:1px; font-weight:700; }
+    .brand p{ font-size:12px; opacity:0.9; margin-top:2px; color: rgba(244,239,230,0.8); }
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+
+    .nav-links a{
+      padding:8px 12px;
+      border-radius:8px;
+      font-weight:600;
+      font-size:14px;
+      color: var(--muted-cream);
+      transition: var(--transition);
+    }
+    .nav-links a:hover{
+      transform: translateY(-2px);
+      color: var(--cream);
+      text-shadow: 0 2px 12px rgba(197,155,76,0.08);
+    }
+
+    /* Gold primary button */
+    .btn-gold{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background: linear-gradient(180deg, var(--gold-start), var(--gold-end));
+      color:#111;
+      padding:10px 18px;
+      border-radius:12px;
+      font-weight:700;
+      box-shadow: var(--shadow-glow), 0 2px 0 rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 180ms ease, box-shadow 200ms ease;
+      cursor:pointer;
+    }
+    .btn-gold:hover{ transform: translateY(-3px) scale(1.01); box-shadow: 0 14px 50px rgba(197,155,76,0.22); }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 460px;
+      gap:36px;
+      align-items:center;
+      margin-top:28px;
+      position:relative;
+    }
+
+    .hero-left{
+      padding: 36px;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background: linear-gradient(180deg, rgba(229,186,115,0.06), rgba(197,155,76,0.02));
+      border: 1px solid rgba(197,155,76,0.06);
+      color:var(--muted-cream);
+      font-weight:600;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+    .hero h2{ font-size:44px; line-height:1.02; letter-spacing:0.2px; margin-bottom:12px; }
+    .hero p{ font-size:16px; max-width:70%; margin-bottom:18px; }
+
+    /* Staggered CTA group */
+    .cta-row{ display:flex; gap:12px; align-items:center; margin-top:8px; }
+    .secondary{
+      padding:10px 14px;
+      border-radius:10px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.04);
+      color:var(--muted-cream);
+    }
+
+    /* Hero card (image) */
+    .hero-card{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      padding:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+    .hero-img{
+      width:100%;
+      height:380px;
+      border-radius:12px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-img img{
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition: transform 600ms cubic-bezier(.2,.9,.25,1);
+      transform-origin:center;
+      border-radius:10px;
+    }
+    .hero-card:hover img{ transform: scale(1.03); }
+
+    /* radial lighting overlay behind hero image */
+    .hero-img::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: radial-gradient(420px 200px at 80% 10%, rgba(229,186,115,0.06), transparent),
+                  radial-gradient(220px 120px at 25% 85%, rgba(20,34,26,0.18), transparent);
+      mix-blend-mode: screen;
+    }
+
+    /* Categories grid: four panes with glass cards */
+    .categories{
+      display:grid;
+      grid-template-columns: repeat(2,1fr);
+      gap:22px;
+      margin-top:42px;
+    }
+
+    .category{
+      padding:18px;
+      border-radius:14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6), var(--glass-inner-shadow);
+      backdrop-filter: blur(var(--glass-blur));
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-height:200px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .category h3{ font-size:20px; margin-bottom:4px; }
+    .category p{ font-size:13px; color: rgba(244,239,230,0.78); }
+
+    /* Product card inside category */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:12px;
+      margin-top:8px;
+    }
+    .product{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:10px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
+      border:1px solid rgba(255,255,255,0.02);
+      transition: transform 250ms ease, box-shadow 250ms ease;
+    }
+    .product:hover{ transform: translateY(-6px); box-shadow: 0 18px 50px rgba(0,0,0,0.6), 0 6px 26px rgba(197,155,76,0.04); }
+
+    .product-thumb{
+      width:84px; height:64px; border-radius:10px; overflow:hidden; flex-shrink:0; position:relative;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .product-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .product-info{ flex:1; min-width:0; }
+    .product-title{ font-weight:700; font-size:14px; color:var(--cream); }
+    .product-meta{ font-size:12px; color: rgba(244,239,230,0.75); display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:6px; }
+
+    .price{ font-weight:700; color:var(--muted-cream); }
+    .add-btn{
+      padding:8px 12px;
+      border-radius:10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      color:var(--muted-cream);
+      font-weight:700;
+      cursor:pointer;
+    }
+    .add-btn.gold{
+      background: linear-gradient(180deg, var(--gold-start), var(--gold-end));
+      color:#111; box-shadow: 0 10px 36px rgba(197,155,76,0.14);
+      border: none;
+      text-shadow: none;
+    }
+
+    /* Cart floating button / panel */
+    .cart-toggle{
+      position: fixed;
+      right: 22px;
+      bottom: 28px;
+      z-index:1300;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 16px;
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      cursor:pointer;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+    }
+    .cart-toggle .count{
+      background: linear-gradient(180deg, var(--gold-start), var(--gold-end));
+      color:#111;
+      padding:6px 8px; border-radius:999px; font-weight:700;
+      box-shadow: 0 12px 40px rgba(197,155,76,0.14);
+    }
+
+    .cart-panel{
+      position: fixed;
+      right: 22px;
+      bottom: 100px;
+      width:360px;
+      max-height:72vh;
+      overflow:auto;
+      z-index:1300;
+      padding:16px;
+      border-radius:14px;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border-strong);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.7);
+      backdrop-filter: blur(var(--glass-blur));
+      display:none;
+      flex-direction:column;
+      gap:12px;
+    }
+    .cart-panel.open{ display:flex; }
+
+    .cart-item{ display:flex; gap:10px; align-items:center; padding:8px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02)); border:1px solid rgba(255,255,255,0.02); }
+    .qty{ display:inline-flex; gap:6px; align-items:center; background: rgba(255,255,255,0.02); padding:6px; border-radius:8px; }
+
+    .cart-summary{ margin-top:6px; display:flex; justify-content:space-between; align-items:center; font-weight:700; color:var(--muted-cream); }
+
+    .address-input{
+      width:100%;
+      padding:10px;
+      border-radius:10px;
+      border: 1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      color:var(--cream);
+      outline:none;
+      margin-top:8px;
+    }
+
+    .whatsapp-btn{
+      display:block;
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      text-align:center;
+      background: linear-gradient(180deg, #25D366, #1da851);
+      color:#fff;
+      font-weight:800;
+      margin-top:12px;
+      box-shadow: 0 12px 40px rgba(37,211,102,0.12);
+      border:none;
+      cursor:pointer;
+    }
+
+    /* Staggered fade-in animations (reveal on load) */
+    .reveal { opacity:0; transform: translateY(18px) scale(0.996); transition: opacity 700ms var(--transition), transform 700ms var(--transition); }
+    .reveal.is-visible{ opacity:1; transform: translateY(0) scale(1); }
+
+    /* Responsive adjustments */
+    @media (max-width:1000px){
+      .hero{ grid-template-columns: 1fr; }
+      .hero p{ max-width:100%; }
+      .categories{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns: 1fr 1fr; }
+      .container{ margin-top:72px; }
+      .nav{ left:12px; transform:none; width:calc(100% - 24px); }
+      .cart-panel{ right:12px; width:92%; left:12px; bottom: 86px; }
+    }
+    @media (max-width:560px){
+      .cards{ grid-template-columns: 1fr; }
+      .nav-links{ display:none; }
+      .logo{ width:48px;height:48px; }
+      .brand h1{ font-size:16px; }
+      .hero h2{ font-size:30px; }
+      .hero-img{ height:260px; }
+    }
+
+    /* Subtle decorative lines for luxury feel */
+    .thin-line{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(197,155,76,0.06), transparent);
+      border-radius:2px;
+      margin:8px 0;
+    }
+
   </style>
 </head>
-<body class="font-sans antialiased bg-ivory text-gray-800">
-
-  <!-- NAVBAR -->
-  <header class="fixed top-4 left-0 right-0 z-40 px-6">
-    <nav class="mx-auto max-w-6xl rounded-xl nav-blur backdrop-blur-md py-3 px-4 flex items-center justify-between gap-4 shadow-lux">
-      <div class="flex items-center gap-4">
-        <a href="#" class="flex items-center gap-3" aria-label="Abo El-Saud Sweets home">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-lux-forest to-emerald-800 flex items-center justify-center text-ivory shadow-inner" style="font-family: 'Playfair Display', serif;">
-            AES
-          </div>
-          <div>
-            <div class="text-sm text-gray-700" style="font-family: 'Playfair Display', serif;">Abo El‑Saud Sweets</div>
-            <div class="text-xs text-gray-500 leading-none">حلويات أبو السعود للحلويات الغربية</div>
-          </div>
-        </a>
+<body>
+  <!-- NAV -->
+  <nav class="nav reveal" aria-label="Primary">
+    <div class="brand" role="banner">
+      <div class="logo" aria-hidden="true">
+        <!-- Elegant patisserie monogram (SVG) -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M32 8c6 0 12 3 16 8-4 5-10 8-16 8s-12-3-16-8c4-5 10-8 16-8zm0 14c8 0 14 6 14 14s-6 14-14 14-14-6-14-14 6-14 14-14z"/>
+        </svg>
       </div>
-
-      <div class="hidden md:flex items-center gap-2">
-        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-800 hover:shadow-sm transition pill-active" href="#hero" data-animate>Home</a>
-        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:shadow-sm transition" href="#categories" data-animate>Categories</a>
-        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:shadow-sm transition" href="#about" data-animate>About</a>
-        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:shadow-sm transition" href="#contact" data-animate>Contact</a>
-      </div>
-
-      <div class="flex items-center gap-4">
-        <button id="cartBtn" aria-haspopup="dialog" aria-expanded="false" class="relative p-2 rounded-md hover:bg-white/40 transition" title="Open cart">
-          <!-- Shopping Cart Icon -->
-          <svg class="w-6 h-6 text-lux-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 3h2l1 6h13l1-4H6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 19a1 1 0 11-2 0 1 1 0 012 0zm-8 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-          <span id="cartCount" class="absolute -top-1 -right-1 bg-lux-gold text-xs text-white rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
-        </button>
-
-        <button id="menuToggle" class="md:hidden p-2 rounded-md text-lux-forest">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <main class="pt-32">
-    <!-- HERO -->
-    <section id="hero" class="max-w-6xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
       <div>
-        <h1 data-animate class="text-4xl md:text-6xl font-serif text-lux-forest leading-tight" style="font-family:'Playfair Display', serif;">
-          Abo El‑Saud Sweets
-        </h1>
-        <p data-animate class="mt-4 text-lg md:text-xl text-gray-700 max-w-xl">
-          Luxury Western Pastries — handcrafted, refined flavors, and a timeless presentation.
-          <span class="block text-sm text-gray-500 mt-2">حلويات غربية فاخرة — صنعة يدويّة، مذاق رفيع، وتقديم أنيق</span>
-        </p>
+        <h1>Maison de Pâtisserie</h1>
+        <p>Haute Pâtisserie — Crafted Globally</p>
+      </div>
+    </div>
 
-        <div class="mt-8 flex gap-4" data-animate>
-          <a href="#categories" class="inline-flex items-center gap-3 btn-gold px-5 py-3 rounded-full shadow hover:scale-[1.01] transition">
-            Explore Menu
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <button id="viewCartCTA" class="px-5 py-3 border border-lux-forest text-lux-forest rounded-full shadow-sm hover:bg-lux-forest/6 transition">View Cart</button>
+    <div class="nav-links" role="navigation" aria-label="Top">
+      <a href="#collections">Collections</a>
+      <a href="#story">Our Story</a>
+      <a href="#locations">Locations</a>
+      <button class="btn-gold" id="orderNowBtn">Order Now</button>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <span class="eyebrow reveal" data-delay="60">New Seasonal Collection</span>
+        <h2 class="reveal" data-delay="120">Dark Luxury — Pâtisserie for Connoisseurs</h2>
+        <p class="reveal" data-delay="180">Exquisitely layered pastries, hand-crafted by master pâtissiers. Indulgent flavors, premium ingredients, and a signature aesthetic — presented in a refined, dark-luxury experience.</p>
+
+        <div class="cta-row reveal" data-delay="240">
+          <button class="btn-gold" id="shopAllBtn">Explore Collection</button>
+          <button class="secondary" id="learnBtn">Discover Our Process</button>
         </div>
 
-        <div class="mt-8 flex gap-6 items-center text-sm text-gray-500" data-animate>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-ivory flex items-center justify-center border border-gray-100">✓</div>
-            <div>Handmade recipes</div>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-ivory flex items-center justify-center border border-gray-100">★</div>
-            <div>Premium ingredients</div>
-          </div>
+        <div style="margin-top:20px;">
+          <div class="thin-line"></div>
+          <p class="reveal" data-delay="320" style="margin-top:12px; font-size:13px; color:rgba(244,239,230,0.7)">Delivered globally. Local courier & concierge checkout available. Reserve rare pastries in advance.</p>
         </div>
       </div>
 
-      <div class="relative">
-        <div class="rounded-3xl overflow-hidden shadow-lux card-gloss">
-          <img src="https://images.unsplash.com/photo-1542828132-3e843b2a0406?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=c2b79f2b7ecfdaf3f0bd8f0bf2f2b865" alt="Luxury pastry assortment" class="w-full h-[420px] object-cover md:object-cover" />
+      <div class="hero-card reveal" data-delay="420">
+        <div class="hero-img">
+          <!-- High-quality Unsplash food photo (premium dessert) -->
+          <img src="https://source.unsplash.com/1200x800/?luxury-dessert,pastry,artisan" alt="Signature pastry plated" loading="lazy" />
         </div>
-        <!-- subtle overlay label -->
-        <div class="absolute left-6 bottom-6 bg-white/80 py-2 px-4 rounded-full shadow text-sm" style="backdrop-filter: blur(4px);">
-          Curated Seasonal Selection — مجموعة الموسم المميزة
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="collections" style="margin-top:30px;">
+      <div class="categories">
+        <!-- Category: Croissants -->
+        <div class="category reveal" data-delay="80" data-category="Croissants">
+          <h3>Artisanal Croissants</h3>
+          <p>Hand-laminated, layered to perfection — classic, almond, and bespoke seasonal flavors.</p>
+          <div class="cards" id="cat-croissants"></div>
+        </div>
+
+        <!-- Category: Éclairs -->
+        <div class="category reveal" data-delay="140" data-category="Eclairs">
+          <h3>Signature Éclairs</h3>
+          <p>Buttery choux, velvety creams, and gilded glazes — an elevated take on a French classic.</p>
+          <div class="cards" id="cat-eclairs"></div>
+        </div>
+
+        <!-- Category: Tarts -->
+        <div class="category reveal" data-delay="200" data-category="Tarts">
+          <h3>Refined Tarts</h3>
+          <p>Flaky shells, precise curds, and seasonal fruit compositions — meticulously balanced.</p>
+          <div class="cards" id="cat-tarts"></div>
+        </div>
+
+        <!-- Category: Cakes -->
+        <div class="category reveal" data-delay="260" data-category="Cakes">
+          <h3>Gâteau & Entremets</h3>
+          <p>Layered entremets, mirror finishes, and bespoke flavors for special occasions.</p>
+          <div class="cards" id="cat-cakes"></div>
         </div>
       </div>
     </section>
 
-    <!-- 4 CATEGORIES -->
-    <section id="categories" class="max-w-6xl mx-auto px-6 py-12">
-      <h2 data-animate class="text-2xl font-serif text-lux-forest mb-6">Our Collections</h2>
-      <p data-animate class="text-gray-600 mb-8 max-w-2xl">Four curated categories of Western pastries — each crafted for indulgence and presentation.</p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Category Card Template -->
-        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
-          <div class="relative h-48 rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1542144612-1a5a0f0f5a4b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=27b58e4943d5ebe1c2607b1b0dbbfb8f" alt="Luxury Cakes" class="w-full h-full object-cover">
-          </div>
-          <div class="mt-4">
-            <h3 class="font-serif text-xl text-lux-forest">Luxury Cakes</h3>
-            <p class="text-sm text-gray-600 mt-2">Decadent layered creations with refined finishes — perfect for celebrations.</p>
-            <div class="mt-4 flex gap-3">
-              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="Luxury Cakes">Explore Menu</button>
-              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Signature Slice" data-price="85">Quick Add</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
-          <div class="relative h-48 rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1541599540903-216a46ca9a72?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=aff5a556cf5f7b9d5f1fb7d2e7a095c0" alt="Premium Tarts" class="w-full h-full object-cover">
-          </div>
-          <div class="mt-4">
-            <h3 class="font-serif text-xl text-lux-forest">Premium Tarts</h3>
-            <p class="text-sm text-gray-600 mt-2">Buttery crusts and luxurious fillings — citrus, chocolate, and more.</p>
-            <div class="mt-4 flex gap-3">
-              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="Premium Tarts">Explore Menu</button>
-              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Lemon Tart" data-price="45">Quick Add</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
-          <div class="relative h-48 rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1534278931821-4b8f9b9b7c5d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a809b9d7a6f5b463c0c1fcd480ad21b" alt="French Macarons" class="w-full h-full object-cover">
-          </div>
-          <div class="mt-4">
-            <h3 class="font-serif text-xl text-lux-forest">French Macarons</h3>
-            <p class="text-sm text-gray-600 mt-2">Delicate shells, refined fillings — assorted flavors and colors.</p>
-            <div class="mt-4 flex gap-3">
-              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="French Macarons">Explore Menu</button>
-              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Macaron Box" data-price="120">Quick Add</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
-          <div class="relative h-48 rounded-xl overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1589308078053-6bde9b12c3a9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1f54a3b8c9e71f6f4d5b3a479b4b41a4" alt="Eclairs and Choux" class="w-full h-full object-cover">
-          </div>
-          <div class="mt-4">
-            <h3 class="font-serif text-xl text-lux-forest">Eclairs & Choux</h3>
-            <p class="text-sm text-gray-600 mt-2">Crisp shells, silky creams — classic French craftsmanship.</p>
-            <div class="mt-4 flex gap-3">
-              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="Eclairs & Choux">Explore Menu</button>
-              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Classic Eclair" data-price="38">Quick Add</button>
-            </div>
-          </div>
-        </article>
+    <!-- Story / Footer stub -->
+    <section id="story" style="margin-top:42px;" class="reveal" data-delay="360">
+      <div style="display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
+        <div style="flex:1; min-width:240px;">
+          <h3>Our Story</h3>
+          <p>Maison de Pâtisserie unites century-old technique with contemporary luxury design. Each piece is a study in restraint and detail.</p>
+        </div>
+        <div style="width:320px; border-radius:12px; overflow:hidden; background:var(--card-bg); padding:12px; border:1px solid var(--card-border); backdrop-filter: blur(var(--glass-blur));">
+          <img src="https://source.unsplash.com/800x600/?pastry,chef,atelier" alt="Chef at work" style="width:100%; height:100%; object-fit:cover; display:block; border-radius:8px;">
+        </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="max-w-6xl mx-auto px-6 py-12">
-      <div class="bg-white rounded-2xl p-8 shadow-lux">
-        <h3 class="text-xl font-serif text-lux-forest">About Abo El‑Saud</h3>
-        <p class="text-gray-600 mt-3">We blend Western pastry traditions with premium local ingredients, delivering handcrafted luxury for every moment.</p>
-      </div>
-    </section>
-
-    <!-- FOOTER / CONTACT -->
-    <footer id="contact" class="max-w-6xl mx-auto px-6 py-12 text-gray-600">
-      <div class="flex flex-col md:flex-row justify-between items-start gap-6">
-        <div>
-          <h4 class="font-serif text-lux-forest">Get in touch</h4>
-          <p class="mt-3">Address: Cairo (example) • Phone: <strong class="text-lux-forest">+20 1XXXXXXXXX</strong></p>
-        </div>
-        <div class="text-sm">
-          <div>Follow us: Instagram • Facebook</div>
-          <div class="mt-3 text-xs text-gray-400">© <span id="year"></span> Abo El‑Saud Sweets</div>
-        </div>
-      </div>
-    </footer>
   </main>
 
-  <!-- PRODUCT MODAL (Explore Menu) -->
-  <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
-    <div class="bg-ivory rounded-2xl max-w-3xl w-full shadow-lux overflow-hidden">
-      <div class="flex items-center justify-between p-6 border-b">
-        <h3 id="modalTitle" class="font-serif text-lux-forest text-xl">Menu</h3>
-        <button id="closeModal" class="text-gray-600 p-2 rounded-md">Close ✕</button>
-      </div>
-      <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" id="modalProducts">
-        <!-- Filled dynamically -->
-      </div>
+  <!-- CART TOGGLE -->
+  <button class="cart-toggle reveal" id="cartToggle" aria-label="Open cart">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l.4 2M7 13h10l3-8H6.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted-cream)"/></svg>
+    <div style="text-align:left;">
+      <div style="font-size:12px; font-weight:700;">Local Cart</div>
+      <div style="font-size:11px; color:rgba(244,239,230,0.75)">Order & checkout via WhatsApp</div>
     </div>
-  </div>
+    <div class="count" id="cartCount">0</div>
+  </button>
 
-  <!-- CART SLIDEOUT -->
-  <aside id="cartSidebar" class="fixed right-0 top-0 h-full w-full md:w-[420px] z-50 bg-white transform translate-x-full transition-transform shadow-2xl p-6 overflow-auto" aria-hidden="true" role="dialog" aria-label="Shopping cart">
-    <div class="flex items-start justify-between">
-      <h3 class="font-serif text-2xl text-lux-forest">Your Order <span class="text-sm text-gray-500">سلة المشتريات</span></h3>
-      <button id="closeCart" class="p-2 rounded-md text-gray-600">Close</button>
+  <!-- CART PANEL -->
+  <aside class="cart-panel" id="cartPanel" aria-hidden="true" aria-label="Cart panel">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <strong style="font-size:15px;">Your Local Cart</strong>
+      <button id="closeCart" class="secondary" style="background:transparent;border:none;color:var(--muted-cream);cursor:pointer">Close</button>
     </div>
 
-    <div id="cartItems" class="mt-6 space-y-4">
-      <!-- items injected here -->
-      <div class="text-gray-400">Your cart is empty</div>
+    <div id="cartItems" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+    <div class="cart-summary">
+      <div>Subtotal</div>
+      <div id="cartSubtotal" style="font-size:16px;">$0.00</div>
     </div>
 
-    <div class="mt-6 border-t pt-4">
-      <div class="flex justify-between items-center">
-        <div class="text-sm text-gray-600">Subtotal</div>
-        <div id="subtotal" class="text-lg font-semibold text-lux-forest">0 EGP</div>
-      </div>
+    <label style="font-size:13px; color:rgba(244,239,230,0.8); margin-top:6px;">Delivery address</label>
+    <input type="text" id="addressInput" class="address-input" placeholder="Street, city, postal code — ex: 1234 Rue de Luxe, Paris" aria-label="Delivery address">
 
-      <form id="checkoutForm" class="mt-4 space-y-3">
-        <div>
-          <label class="text-sm text-gray-700">ادخال العنوان (Delivery Address)</label>
-          <input required id="inputAddress" name="address" placeholder="شارع، بناية، الحي" class="mt-2 w-full border rounded-md p-3 text-sm" />
-        </div>
-        <div>
-          <label class="text-sm text-gray-700">الاسم (Name)</label>
-          <input required id="inputName" name="name" placeholder="الاسم الكامل" class="mt-2 w-full border rounded-md p-3 text-sm" />
-        </div>
-        <div>
-          <label class="text-sm text-gray-700">الهاتف (Phone)</label>
-          <input required id="inputPhone" name="phone" placeholder="+20 1XXXXXXXXX" class="mt-2 w-full border rounded-md p-3 text-sm" />
-        </div>
+    <button class="whatsapp-btn" id="checkoutBtn" title="Checkout via WhatsApp">Checkout with WhatsApp</button>
 
-        <div class="mt-4 flex gap-3">
-          <button type="button" id="whatsappOrder" class="flex-1 py-3 rounded-full btn-gold text-white">Order via WhatsApp — طلب عبر الواتس</button>
-          <button type="button" id="clearCart" class="py-3 px-4 rounded-full border">Clear</button>
-        </div>
-      </form>
-
-      <p class="text-xs text-gray-400 mt-3">Your order will be opened in WhatsApp for confirmation and final submission. Please ensure your phone number is correct.</p>
+    <div style="font-size:12px; color:rgba(244,239,230,0.7); margin-top:8px;">
+      We will confirm availability and local courier ETA via WhatsApp. Phone number is required on the next step.
     </div>
   </aside>
 
-  <!-- Small container for flying visual (cloned image) -->
-  <div id="flyLayer" class="fixed pointer-events-none top-0 left-0 w-full h-full z-50"></div>
-
   <script>
-    // ---------- Utilities & initial UI ----------
-    document.getElementById('year').textContent = new Date().getFullYear();
+    /* Data: products with high-quality Unsplash image queries to avoid placeholder load issues */
+    const PRODUCTS = [
+      { id: 'cr1', category: 'Croissants', title: 'Classic Butter Croissant', price: 4.5, img: 'https://source.unsplash.com/800x600/?croissant,artisan' },
+      { id: 'cr2', category: 'Croissants', title: 'Almond Croissant — Glacé', price: 6.5, img: 'https://source.unsplash.com/800x600/?almond-croissant' },
+      { id: 'cr3', category: 'Croissants', title: 'Chocolate Croissant', price: 5.0, img: 'https://source.unsplash.com/800x600/?pain-au-chocolat' },
 
-    // Animate on load (staggered)
-    window.addEventListener('DOMContentLoaded', () => {
-      const els = Array.from(document.querySelectorAll('[data-animate]'));
-      els.forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 80 + 120));
-    });
+      { id: 'ec1', category: 'Eclairs', title: 'Vanilla Bean Éclair', price: 7.5, img: 'https://source.unsplash.com/800x600/?eclair,vanilla' },
+      { id: 'ec2', category: 'Eclairs', title: 'Dark Chocolate Éclair', price: 8.0, img: 'https://source.unsplash.com/800x600/?eclair,chocolate' },
+      { id: 'ec3', category: 'Eclairs', title: 'Salted Caramel Éclair', price: 8.5, img: 'https://source.unsplash.com/800x600/?eclair,caramel' },
 
-    // ---------- Simple SPA/UX interactions ----------
-    const cartBtn = document.getElementById('cartBtn');
-    const cartSidebar = document.getElementById('cartSidebar');
-    const closeCart = document.getElementById('closeCart');
-    const viewCartCTA = document.getElementById('viewCartCTA');
-    const cartCountEl = document.getElementById('cartCount');
-    const cartItemsEl = document.getElementById('cartItems');
-    const subtotalEl = document.getElementById('subtotal');
-    const whatsappOrder = document.getElementById('whatsappOrder');
-    const clearCartBtn = document.getElementById('clearCart');
+      { id: 'ta1', category: 'Tarts', title: 'Lemon Curd Tart', price: 9.0, img: 'https://source.unsplash.com/800x600/?lemon-tart' },
+      { id: 'ta2', category: 'Tarts', title: 'Frangipane Pear Tart', price: 10.0, img: 'https://source.unsplash.com/800x600/?pear-tart' },
+      { id: 'ta3', category: 'Tarts', title: 'Seasonal Berry Tart', price: 11.0, img: 'https://source.unsplash.com/800x600/?berry-tart' },
 
-    cartBtn.addEventListener('click', openCart);
-    closeCart.addEventListener('click', closeCartFunc);
-    viewCartCTA.addEventListener('click', openCart);
+      { id: 'ca1', category: 'Cakes', title: 'Hazelnut Entremet', price: 18.0, img: 'https://source.unsplash.com/800x600/?entremet,nut' },
+      { id: 'ca2', category: 'Cakes', title: 'Opera Slice', price: 15.0, img: 'https://source.unsplash.com/800x600/?opera-cake' },
+      { id: 'ca3', category: 'Cakes', title: 'Mirror Glaze Gâteau', price: 22.0, img: 'https://source.unsplash.com/800x600/?mirror-glaze-cake' }
+    ];
 
-    function openCart() {
-      cartSidebar.style.transform = 'translateX(0%)';
-      cartBtn.setAttribute('aria-expanded', 'true');
+    // Simple cart implementation persisted in localStorage
+    const CART_KEY = 'luxury_patiss_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}'); // { productId: qty }
+
+    // Utility functions
+    function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartUI(); }
+    function addToCart(id, qty = 1){
+      cart[id] = (cart[id] || 0) + qty;
+      saveCart();
+      pulseCartToggle();
     }
-    function closeCartFunc() {
-      cartSidebar.style.transform = 'translateX(100%)';
-      cartBtn.setAttribute('aria-expanded', 'false');
+    function removeFromCart(id){
+      delete cart[id];
+      saveCart();
     }
-
-    // ---------- Local cart state ----------
-    let cart = []; // {id,name,price,qty}
-
-    function updateCartUI() {
-      cartCountEl.textContent = cart.reduce((s,i) => s + i.qty, 0);
-      // items
-      cartItemsEl.innerHTML = '';
-      if (cart.length === 0) {
-        cartItemsEl.innerHTML = '<div class="text-gray-400">Your cart is empty</div>';
-      } else {
-        cart.forEach((it, idx) => {
-          const row = document.createElement('div');
-          row.className = 'flex items-center gap-4';
-          row.innerHTML = `
-            <div class="w-14 h-14 rounded-lg bg-gray-100 flex items-center justify-center text-sm text-gray-700">${it.name.slice(0,2)}</div>
-            <div class="flex-1 min-w-0">
-              <div class="font-medium text-gray-800">${escapeHtml(it.name)}</div>
-              <div class="text-xs text-gray-500">${it.price} EGP</div>
-            </div>
-            <div class="flex items-center gap-2">
-              <button class="qtyBtn text-gray-600 px-2 py-1 rounded border" data-idx="${idx}" data-op="-">−</button>
-              <div class="px-3">${it.qty}</div>
-              <button class="qtyBtn text-gray-600 px-2 py-1 rounded border" data-idx="${idx}" data-op="+">+</button>
-            </div>
-            <div class="ml-4 text-sm text-gray-800 font-semibold">${(it.price * it.qty)} EGP</div>
-          `;
-          cartItemsEl.appendChild(row);
-        });
-        // attach qty handlers
-        Array.from(cartItemsEl.querySelectorAll('.qtyBtn')).forEach(btn => {
-          btn.addEventListener('click', e => {
-            const idx = Number(btn.getAttribute('data-idx'));
-            const op = btn.getAttribute('data-op');
-            if (op === '+') cart[idx].qty++;
-            else cart[idx].qty = Math.max(0, cart[idx].qty - 1);
-            if (cart[idx].qty === 0) cart.splice(idx, 1);
-            updateCartUI();
-          });
-        });
-      }
-      const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
-      subtotalEl.textContent = subtotal + ' EGP';
+    function setQty(id, qty){
+      if(qty <= 0) removeFromCart(id);
+      else cart[id] = qty;
+      saveCart();
     }
-
-    function addToCart(item) {
-      // item = {name, price}
-      const found = cart.find(c => c.name === item.name);
-      if (found) found.qty++;
-      else cart.push({ id: Date.now() + Math.random(), name: item.name, price: item.price, qty: 1 });
-      // small fly animation
-      triggerFly();
-      updateCartUI();
-    }
-
-    // Quick add buttons on cards
-    document.querySelectorAll('.addQuick').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const name = btn.getAttribute('data-name');
-        const price = Number(btn.getAttribute('data-price')) || 0;
-        addToCart({name, price});
-        openCart();
+    function cartItemsDetailed(){
+      return Object.keys(cart).map(id => {
+        const p = PRODUCTS.find(x => x.id===id);
+        return { ...p, qty: cart[id], subtotal: (p.price * cart[id]) };
       });
-    });
+    }
+    function cartCount(){
+      return Object.values(cart).reduce((s,n)=>s+(+n),0);
+    }
+    function cartSubtotal(){
+      return cartItemsDetailed().reduce((s,i)=>s+i.subtotal,0);
+    }
 
-    // ESC to close cart / modal
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeCartFunc();
-        closeModal();
-      }
-    });
+    // Render product cards into categories
+    function renderCategories(){
+      const map = {
+        'Croissants': document.getElementById('cat-croissants'),
+        'Eclairs': document.getElementById('cat-eclairs'),
+        'Tarts': document.getElementById('cat-tarts'),
+        'Cakes': document.getElementById('cat-cakes')
+      };
+      Object.values(map).forEach(el => { if(el) el.innerHTML = ''; });
 
-    // Clear cart
-    clearCartBtn.addEventListener('click', () => {
-      cart = [];
-      updateCartUI();
-    });
-
-    // ---------- Product modal (Explore Menu) ----------
-    const productModal = document.getElementById('productModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalProducts = document.getElementById('modalProducts');
-    const closeModalBtn = document.getElementById('closeModal');
-
-    const sampleProducts = {
-      "Luxury Cakes": [
-        {name: 'Signature Slice', price: 85, desc: 'Single slice — layered mousse & ganache.'},
-        {name: 'Whole Celebration Cake (6")', price: 950, desc: 'Serves 8-12, custom finishes.'}
-      ],
-      "Premium Tarts": [
-        {name: 'Lemon Tart', price: 45, desc: 'Tangy lemon curd, almond crust.'},
-        {name: 'Chocolate Hazelnut Tart', price: 60, desc: 'Silky chocolate & praline.'}
-      ],
-      "French Macarons": [
-        {name: 'Macaron Box - 6', price: 120, desc: 'Assorted flavors.'},
-        {name: 'Macaron Box - 12', price: 220, desc: 'Premium selection.'}
-      ],
-      "Eclairs & Choux": [
-        {name: 'Classic Eclair', price: 38, desc: 'Vanilla custard, chocolate glaze.'},
-        {name: 'Choux Pastry Box - 8', price: 160, desc: 'Assorted creams.'}
-      ]
-    };
-
-    document.querySelectorAll('.exploreBtn').forEach(b => {
-      b.addEventListener('click', () => {
-        const cat = b.getAttribute('data-cat');
-        openModal(cat);
-      });
-    });
-
-    function openModal(category) {
-      modalTitle.textContent = category;
-      modalProducts.innerHTML = '';
-      const items = sampleProducts[category] || [];
-      items.forEach(it => {
-        const c = document.createElement('div');
-        c.className = 'p-4 border rounded-lg bg-white';
-        c.innerHTML = `
-          <div class="flex flex-col h-full">
-            <div class="flex items-start justify-between">
-              <div>
-                <div class="font-medium text-gray-800">${escapeHtml(it.name)}</div>
-                <div class="text-xs text-gray-500">${escapeHtml(it.desc)}</div>
+      PRODUCTS.forEach(prod => {
+        const container = map[prod.category];
+        if(!container) return;
+        const card = document.createElement('div');
+        card.className = 'product';
+        card.innerHTML = `
+          <div class="product-thumb"><img src="${prod.img}" alt="${escapeHtml(prod.title)}" loading="lazy"></div>
+          <div class="product-info">
+            <div class="product-title">${escapeHtml(prod.title)}</div>
+            <div class="product-meta">
+              <div class="price">$${prod.price.toFixed(2)}</div>
+              <div style="display:flex;gap:8px;">
+                <button class="add-btn" data-id="${prod.id}">Add</button>
+                <button class="add-btn gold" data-id="${prod.id}">Quick</button>
               </div>
-              <div class="text-sm font-semibold text-lux-forest">${it.price} EGP</div>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button class="px-3 py-2 rounded-full border addFromModal" data-name="${escapeHtmlAttr(it.name)}" data-price="${it.price}">Add to cart</button>
-              <button class="px-3 py-2 rounded-full border text-gray-600" onclick="alert('More details coming soon')">Details</button>
             </div>
           </div>
         `;
-        modalProducts.appendChild(c);
+        container.appendChild(card);
       });
+
       // attach event listeners
-      productModal.classList.remove('hidden');
-      setTimeout(()=> productModal.classList.add('in'), 10);
-      Array.from(modalProducts.querySelectorAll('.addFromModal')).forEach(btn => {
-        btn.addEventListener('click', () => {
-          const name = btn.getAttribute('data-name');
-          const price = Number(btn.getAttribute('data-price'));
-          addToCart({name, price});
+      document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.id;
+          addToCart(id, 1);
+          // small feedback
+          e.currentTarget.animate([{transform:'scale(1)'},{transform:'scale(0.96)'},{transform:'scale(1)'}],{duration:200});
         });
       });
     }
 
-    function closeModal() {
-      productModal.classList.add('hidden');
+    function updateCartUI(){
+      // count on toggle
+      const countEl = document.getElementById('cartCount');
+      countEl.textContent = cartCount();
+
+      // items list
+      const container = document.getElementById('cartItems');
+      container.innerHTML = '';
+      const items = cartItemsDetailed();
+      if(items.length===0){
+        container.innerHTML = `<div style="padding:10px;color:rgba(244,239,230,0.75);">Your local cart is empty — add pastries to begin.</div>`;
+      } else {
+        items.forEach(i => {
+          const el = document.createElement('div');
+          el.className = 'cart-item';
+          el.innerHTML = `
+            <div style="width:52px;height:42px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)"><img src="${i.img}" alt="${escapeHtml(i.title)}" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div style="flex:1">
+              <div style="font-weight:700;color:var(--cream)">${escapeHtml(i.title)}</div>
+              <div style="font-size:12px;color:rgba(244,239,230,0.75); margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+                <div class="qty">
+                  <button data-id="${i.id}" class="decrease" style="background:transparent;border:none;color:var(--muted-cream);cursor:pointer;font-weight:700">−</button>
+                  <div style="padding:0 6px;">${i.qty}</div>
+                  <button data-id="${i.id}" class="increase" style="background:transparent;border:none;color:var(--muted-cream);cursor:pointer;font-weight:700">+</button>
+                </div>
+                <div style="font-weight:700;">$${i.subtotal.toFixed(2)}</div>
+              </div>
+            </div>
+            <div>
+              <button class="secondary" data-id="${i.id}" style="border-radius:10px;padding:6px 8px;border:none;background:transparent;cursor:pointer;color:rgba(244,239,230,0.75)">✕</button>
+            </div>
+          `;
+          container.appendChild(el);
+        });
+
+        // bind increase/decrease/remove
+        container.querySelectorAll('.increase').forEach(btn => {
+          btn.addEventListener('click', () => { setQty(btn.dataset.id, (cart[btn.dataset.id]||0) + 1); });
+        });
+        container.querySelectorAll('.decrease').forEach(btn => {
+          btn.addEventListener('click', () => { setQty(btn.dataset.id, (cart[btn.dataset.id]||0) - 1); });
+        });
+        container.querySelectorAll('.secondary').forEach(btn => {
+          btn.addEventListener('click', () => { removeFromCart(btn.dataset.id); });
+        });
+      }
+
+      // subtotal
+      document.getElementById('cartSubtotal').textContent = '$' + cartSubtotal().toFixed(2);
     }
-    closeModalBtn.addEventListener('click', closeModal);
-    productModal.addEventListener('click', (e) => {
-      if (e.target === productModal) closeModal();
-    });
 
-    // ---------- WhatsApp Checkout ----------
-    whatsappOrder.addEventListener('click', () => {
-      const addr = document.getElementById('inputAddress').value.trim();
-      const name = document.getElementById('inputName').value.trim();
-      const phone = document.getElementById('inputPhone').value.trim();
-      if (!addr || !name || !phone) {
-        alert('Please fill required fields: Address, Name, and Phone. الرجاء ملء الحقول المطلوبة');
+    // WhatsApp checkout: build message containing items and address, open wa.me link
+    function checkoutViaWhatsApp(){
+      const items = cartItemsDetailed();
+      if(items.length===0){
+        alert('Your cart is empty.');
         return;
       }
-      if (cart.length === 0) {
-        alert('Your cart is empty. سلة المشتريات فارغة');
+      const address = document.getElementById('addressInput').value.trim();
+      if(!address){
+        alert('Please enter a delivery address for local courier.');
+        document.getElementById('addressInput').focus();
         return;
       }
 
-      // Build message (clean & well formatted)
-      let lines = [];
-      lines.push('Abo El-Saud Sweets — New Order / طلب جديد');
-      lines.push('--------------------------------------');
-      cart.forEach(it => {
-        lines.push(`${it.qty} x ${it.name} — ${it.price} EGP each — ${(it.qty * it.price)} EGP`);
+      // Compose message
+      let message = `Maison de Pâtisserie — Local order\n\nItems:\n`;
+      items.forEach(i => {
+        message += `• ${i.title} x${i.qty} — $${i.subtotal.toFixed(2)}\n`;
       });
-      const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
-      lines.push('--------------------------------------');
-      lines.push(`Total: ${total} EGP`);
-      lines.push('');
-      lines.push('Delivery Address / العنوان:');
-      lines.push(addr);
-      lines.push('');
-      lines.push(`Name: ${name}`);
-      lines.push(`Phone: ${phone}`);
-      lines.push('');
-      lines.push('Notes:');
+      message += `\nSubtotal: $${cartSubtotal().toFixed(2)}\n`;
+      message += `Delivery address: ${address}\n`;
+      message += `\nPlease confirm availability and delivery ETA. Thank you.`;
 
-      const message = lines.join('\n');
-
-      // Replace YOUR_NUMBER with your number (international format, no +)
-      const WHATSAPP_NUMBER = 'YOUR_NUMBER';
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
-      // Open in new tab
+      // WhatsApp number placeholder: replace with your shop number in E.164 e.g. 15551234567
+      const shopNumber = '15551234567';
+      const url = `https://wa.me/${shopNumber}?text=${encodeURIComponent(message)}`;
+      // open
       window.open(url, '_blank');
 
-      // Optionally keep the cart or clear — here we leave it for user to confirm
+      // small UX: close cart after opening
+      toggleCart(false);
+    }
+
+    // small helper for pulse animation
+    function pulseCartToggle(){
+      const el = document.getElementById('cartToggle');
+      el.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.03)' },
+        { transform: 'scale(1)' }
+      ], { duration: 380, easing: 'cubic-bezier(.2,.9,.25,1)' });
+      updateCartUI();
+    }
+
+    // Toggle cart panel
+    function toggleCart(open){
+      const panel = document.getElementById('cartPanel');
+      const toggle = document.getElementById('cartToggle');
+      if(open === undefined) open = !panel.classList.contains('open');
+      if(open){
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden','false');
+      } else {
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden','true');
+      }
+    }
+
+    // Basic escape for html insertion
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])); }
+
+    // Setup event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategories();
+      updateCartUI();
+
+      document.getElementById('cartToggle').addEventListener('click', () => toggleCart(true));
+      document.getElementById('closeCart').addEventListener('click', () => toggleCart(false));
+      document.getElementById('checkoutBtn').addEventListener('click', checkoutViaWhatsApp);
+
+      document.getElementById('orderNowBtn').addEventListener('click', () => {
+        window.location.hash = '#collections';
+        document.getElementById('shopAllBtn').focus();
+      });
+
+      // Smooth scroll for explore
+      document.getElementById('shopAllBtn').addEventListener('click', () => {
+        document.querySelector('#collections').scrollIntoView({behavior:'smooth', block:'start'});
+      });
+
+      // Setup reveal staggered animations
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach((el, i) => {
+        const delay = parseInt(el.dataset.delay || (i * 70));
+        setTimeout(()=> el.classList.add('is-visible'), delay);
+      });
+
+      // Accessibility: keyboard open cart with 'c'
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'c' || e.key === 'C') toggleCart(true);
+      });
+
+      // prevent image layout shift by setting explicit heights where possible is already done
     });
 
-    // ---------- Small visual fly animation indicating add-to-cart ----------
-    const flyLayer = document.getElementById('flyLayer');
-    function triggerFly() {
-      const el = document.createElement('div');
-      el.className = 'absolute';
-      el.style.left = (window.innerWidth - 120) + 'px';
-      el.style.top = '80px';
-      el.style.width = '60px';
-      el.style.height = '60px';
-      el.style.borderRadius = '12px';
-      el.style.background = 'linear-gradient(90deg,#cca464,#dfa85d)';
-      el.style.boxShadow = '0 8px 20px rgba(27,46,30,0.12)';
-      el.style.zIndex = 9999;
-      el.style.display = 'block';
-      el.style.animation = 'flyToCart 700ms forwards cubic-bezier(.2,.9,.2,1)';
-      flyLayer.appendChild(el);
-      setTimeout(()=> flyLayer.removeChild(el), 750);
-    }
-
-    // Escape HTML handlers
-    function escapeHtml(text) {
-      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-      return String(text).replace(/[&<>"']/g, m => map[m]);
-    }
-    function escapeHtmlAttr(text) {
-      return String(text).replace(/"/g,'&quot;');
-    }
-
-    // Expose basic functions for debugging in console
-    window.addToCart = addToCart;
-    window._cart = cart;
-    window.updateCartUI = updateCartUI;
   </script>
 </body>
 </html>
