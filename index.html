@@ -1,116 +1,549 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!doctype html>
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> عيد ميلاد سعيد</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abo El-Saud Sweets — حلويات أبو السعود للحلويات الغربية</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script>
+    // Tailwind config for custom theme
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'lux-forest': '#1b2e1e',
+            'ivory': '#fdfbf7',
+            'lux-gold': '#cca464',
+            'lux-caramel': '#dfa85d'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'ui-sans-serif', 'system-ui']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Small extra styles for animations & refined visuals */
+    html,body { background: #fdfbf7; color: #111827; }
+    .nav-blur { background: rgba(255,255,255,0.26); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid rgba(26, 30, 28, 0.06); }
+    .pill-active { background: linear-gradient(90deg, rgba(204,164,100,0.12), rgba(223,168,93,0.06)); border-radius: 9999px; color: #1b2e1e; box-shadow: 0 6px 18px rgba(27,46,30,0.08); }
+    .btn-gold { background: linear-gradient(90deg,#cca464,#dfa85d); color: white; }
+    .card-gloss { background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35)); border: 1px solid rgba(27,46,30,0.04); }
+    .shadow-lux { box-shadow: 0 10px 30px rgba(27,46,30,0.06); }
+
+    /* reveal animation starting state */
+    [data-animate] { opacity: 0; transform: translateY(14px); will-change: transform, opacity; transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 700ms cubic-bezier(.2,.9,.2,1); }
+    [data-animate].in { opacity: 1; transform: translateY(0); }
+
+    /* fly-to-cart keyframes for small visual cue */
+    @keyframes flyToCart {
+      0% { transform: translate(0,0) scale(1); opacity: 1; }
+      60% { transform: translate(-30px,-120px) scale(.6); opacity: .9; }
+      100% { transform: translate(-60px,-200px) scale(.2); opacity: 0; }
+    }
+  </style>
 </head>
-<body>
+<body class="font-sans antialiased bg-ivory text-gray-800">
 
-<!-- الحاوية الخاصة بالقلوب الطايرة في الخلفية -->
-<div id="hearts-container"></div>
+  <!-- NAVBAR -->
+  <header class="fixed top-4 left-0 right-0 z-40 px-6">
+    <nav class="mx-auto max-w-6xl rounded-xl nav-blur backdrop-blur-md py-3 px-4 flex items-center justify-between gap-4 shadow-lux">
+      <div class="flex items-center gap-4">
+        <a href="#" class="flex items-center gap-3" aria-label="Abo El-Saud Sweets home">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-lux-forest to-emerald-800 flex items-center justify-center text-ivory shadow-inner" style="font-family: 'Playfair Display', serif;">
+            AES
+          </div>
+          <div>
+            <div class="text-sm text-gray-700" style="font-family: 'Playfair Display', serif;">Abo El‑Saud Sweets</div>
+            <div class="text-xs text-gray-500 leading-none">حلويات أبو السعود للحلويات الغربية</div>
+          </div>
+        </a>
+      </div>
 
-<!-- 🎁 المرحلة الأولى: صندوق الهدية الكبيرة اللي بتهرب -->
-<div id="gift-container" class="gift-section">
-    <div class="gift-box">happy birthday</div>
-    <button onclick="handleGiftClick()" class="open-btn big-cute-btn">
-        اضغطي لفتح الهدية 
-    </button>
-</div>
+      <div class="hidden md:flex items-center gap-2">
+        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-800 hover:shadow-sm transition pill-active" href="#hero" data-animate>Home</a>
+        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:shadow-sm transition" href="#categories" data-animate>Categories</a>
+        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:shadow-sm transition" href="#about" data-animate>About</a>
+        <a class="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:shadow-sm transition" href="#contact" data-animate>Contact</a>
+      </div>
 
-<!-- 🎂 المرحلة الثانية: التورتة المعدلة وحبال الزينة ربع الدائرية -->
-<div id="cake-container" class="cake-section" style="display: none;">
-    <h2 class="cake-title">جارى تحضير حاجه حلوه شبهك </h2>
-    
-    <!-- حبال زينة ربع دائرية في الأركان فوق -->
-    <div id="left-garland" class="garland left-side">
-        <div class="string-arc"></div>
-        <div class="flags-arc">
-            <span class="flag f1"></span>
-            <span class="flag f2"></span>
-            <span class="flag f3"></span>
-            <span class="flag f4"></span>
-        </div>
-    </div>
-    <div id="right-garland" class="garland right-side">
-        <div class="string-arc"></div>
-        <div class="flags-arc">
-            <span class="flag f4"></span>
-            <span class="flag f3"></span>
-            <span class="flag f2"></span>
-            <span class="flag f1"></span>
-        </div>
-    </div>
-    
-    <div class="cake-wrapper">
-        <!-- الشمعة المنورة -->
-        <div class="cake-layer candle-real" id="candle">
-            <div class="flame"></div>
-        </div>
-        
-        <!-- الطابق الرابع: فانيليا بيضاء -->
-        <div class="cake-layer layer-4-real" id="layer-4">
-            <div class="drip-top"></div>
-        </div>
-        
-        <!-- الطابق الثالث: فراولة بمبي بسييلان فانيليا بيضاء -->
-        <div class="cake-layer layer-3-real" id="layer-3">
-            <div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div><div class="drip d4"></div>
-        </div>
-        
-        <!-- الطابق الثاني: شوكولاتة بني بسييلان فراولة بمبي -->
-        <div class="cake-layer layer-2-real" id="layer-2">
-            <div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div><div class="drip d4"></div><div class="drip d5"></div>
-        </div>
-        
-        <!-- الطابق الأول: قاعدة الريد فيلفيت الكبيرة بسييلان شوكولاتة سايحة -->
-        <div class="cake-layer layer-1-real" id="layer-1">
-            <div class="drip d1"></div><div class="drip d2"></div><div class="drip d3"></div><div class="drip d4"></div><div class="drip d5"></div><div class="drip d6"></div>
-        </div>
-    </div>
+      <div class="flex items-center gap-4">
+        <button id="cartBtn" aria-haspopup="dialog" aria-expanded="false" class="relative p-2 rounded-md hover:bg-white/40 transition" title="Open cart">
+          <!-- Shopping Cart Icon -->
+          <svg class="w-6 h-6 text-lux-forest" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 3h2l1 6h13l1-4H6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 19a1 1 0 11-2 0 1 1 0 012 0zm-8 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-lux-gold text-xs text-white rounded-full w-5 h-5 flex items-center justify-center font-semibold">0</span>
+        </button>
 
-    <!-- زرار الانتقال للمرحلة التالية -->
-    <button id="cake-next-btn" onclick="goToEnvelope()" class="big-cute-btn" style="display: none; margin-top: 30px;">
-        كملى ي قطتى 😍
-    </button>
-</div>
+        <button id="menuToggle" class="md:hidden p-2 rounded-md text-lux-forest">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
 
-<!-- 💌 المرحلة الثالثة: ظرف الجواب والصور المرمية (مظبوط وثابت) -->
-<div id="envelope-container" class="envelope-section" style="display: none;">
-    <div class="envelope" onclick="openEnvelope()">
-        <div class="flap"><div class="tear-line"></div></div>
-        <div class="pocket"></div>
-        
-        <div class="letter custom-card">
-            <div id="card-step-3" class="card-step text-step">
-                <div class="card-text-content">
-                    <h1 class="title">كل سنة وأنتِ طيبة يا قطتى 😍</h1>
-                    <p class="text-content">
-                        كل سنه وأنتِ طيبه ي قلبى وعقبال 100 سنه يارب وتحققى كل اللى نفسك فيه ونفرح بيكى بقا يارب  😂 كل سنه وأنتِ طيبة ي قطتييييييييييييي 😍
-                    </p>
-                    <div class="tags-container">
-                        <span class="tag tag-pink">#أحلى_بنوته</span>
-                        <span class="tag tag-purple">#عيد_ميلاد_سعيد</span>
-                    </div>
-                </div>
+  <!-- MAIN CONTENT -->
+  <main class="pt-32">
+    <!-- HERO -->
+    <section id="hero" class="max-w-6xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 data-animate class="text-4xl md:text-6xl font-serif text-lux-forest leading-tight" style="font-family:'Playfair Display', serif;">
+          Abo El‑Saud Sweets
+        </h1>
+        <p data-animate class="mt-4 text-lg md:text-xl text-gray-700 max-w-xl">
+          Luxury Western Pastries — handcrafted, refined flavors, and a timeless presentation.
+          <span class="block text-sm text-gray-500 mt-2">حلويات غربية فاخرة — صنعة يدويّة، مذاق رفيع، وتقديم أنيق</span>
+        </p>
+
+        <div class="mt-8 flex gap-4" data-animate>
+          <a href="#categories" class="inline-flex items-center gap-3 btn-gold px-5 py-3 rounded-full shadow hover:scale-[1.01] transition">
+            Explore Menu
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <button id="viewCartCTA" class="px-5 py-3 border border-lux-forest text-lux-forest rounded-full shadow-sm hover:bg-lux-forest/6 transition">View Cart</button>
+        </div>
+
+        <div class="mt-8 flex gap-6 items-center text-sm text-gray-500" data-animate>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-ivory flex items-center justify-center border border-gray-100">✓</div>
+            <div>Handmade recipes</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-ivory flex items-center justify-center border border-gray-100">★</div>
+            <div>Premium ingredients</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="rounded-3xl overflow-hidden shadow-lux card-gloss">
+          <img src="https://images.unsplash.com/photo-1542828132-3e843b2a0406?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=c2b79f2b7ecfdaf3f0bd8f0bf2f2b865" alt="Luxury pastry assortment" class="w-full h-[420px] object-cover md:object-cover" />
+        </div>
+        <!-- subtle overlay label -->
+        <div class="absolute left-6 bottom-6 bg-white/80 py-2 px-4 rounded-full shadow text-sm" style="backdrop-filter: blur(4px);">
+          Curated Seasonal Selection — مجموعة الموسم المميزة
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 CATEGORIES -->
+    <section id="categories" class="max-w-6xl mx-auto px-6 py-12">
+      <h2 data-animate class="text-2xl font-serif text-lux-forest mb-6">Our Collections</h2>
+      <p data-animate class="text-gray-600 mb-8 max-w-2xl">Four curated categories of Western pastries — each crafted for indulgence and presentation.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Category Card Template -->
+        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
+          <div class="relative h-48 rounded-xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1542144612-1a5a0f0f5a4b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=27b58e4943d5ebe1c2607b1b0dbbfb8f" alt="Luxury Cakes" class="w-full h-full object-cover">
+          </div>
+          <div class="mt-4">
+            <h3 class="font-serif text-xl text-lux-forest">Luxury Cakes</h3>
+            <p class="text-sm text-gray-600 mt-2">Decadent layered creations with refined finishes — perfect for celebrations.</p>
+            <div class="mt-4 flex gap-3">
+              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="Luxury Cakes">Explore Menu</button>
+              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Signature Slice" data-price="85">Quick Add</button>
             </div>
+          </div>
+        </article>
 
-            <div id="card-step-2" class="card-step photo-step" style="display: none;" onclick="throwSecondPhoto(event)">
-                <img class="card-img" src="2.jpeg" alt="Photo 2">
-                <p class="click-hint">الحلوه دى كبرت سنة 😍</p>
+        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
+          <div class="relative h-48 rounded-xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1541599540903-216a46ca9a72?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=aff5a556cf5f7b9d5f1fb7d2e7a095c0" alt="Premium Tarts" class="w-full h-full object-cover">
+          </div>
+          <div class="mt-4">
+            <h3 class="font-serif text-xl text-lux-forest">Premium Tarts</h3>
+            <p class="text-sm text-gray-600 mt-2">Buttery crusts and luxurious fillings — citrus, chocolate, and more.</p>
+            <div class="mt-4 flex gap-3">
+              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="Premium Tarts">Explore Menu</button>
+              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Lemon Tart" data-price="45">Quick Add</button>
             </div>
+          </div>
+        </article>
 
-            <div id="card-step-1" class="card-step photo-step" onclick="throwFirstPhoto(event)">
-                <img class="card-img" src="1.jpeg" alt="Photo 1">
-                <p class="click-hint">مزة مزة 😂</p>
+        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
+          <div class="relative h-48 rounded-xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1534278931821-4b8f9b9b7c5d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a809b9d7a6f5b463c0c1fcd480ad21b" alt="French Macarons" class="w-full h-full object-cover">
+          </div>
+          <div class="mt-4">
+            <h3 class="font-serif text-xl text-lux-forest">French Macarons</h3>
+            <p class="text-sm text-gray-600 mt-2">Delicate shells, refined fillings — assorted flavors and colors.</p>
+            <div class="mt-4 flex gap-3">
+              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="French Macarons">Explore Menu</button>
+              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Macaron Box" data-price="120">Quick Add</button>
             </div>
+          </div>
+        </article>
+
+        <article class="rounded-2xl overflow-hidden card-gloss p-4 shadow-lux" data-animate>
+          <div class="relative h-48 rounded-xl overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1589308078053-6bde9b12c3a9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1f54a3b8c9e71f6f4d5b3a479b4b41a4" alt="Eclairs and Choux" class="w-full h-full object-cover">
+          </div>
+          <div class="mt-4">
+            <h3 class="font-serif text-xl text-lux-forest">Eclairs & Choux</h3>
+            <p class="text-sm text-gray-600 mt-2">Crisp shells, silky creams — classic French craftsmanship.</p>
+            <div class="mt-4 flex gap-3">
+              <button class="exploreBtn px-4 py-2 rounded-full border border-gray-200 text-sm" data-cat="Eclairs & Choux">Explore Menu</button>
+              <button class="addQuick px-4 py-2 rounded-full btn-gold text-sm shadow" data-name="Classic Eclair" data-price="38">Quick Add</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-12">
+      <div class="bg-white rounded-2xl p-8 shadow-lux">
+        <h3 class="text-xl font-serif text-lux-forest">About Abo El‑Saud</h3>
+        <p class="text-gray-600 mt-3">We blend Western pastry traditions with premium local ingredients, delivering handcrafted luxury for every moment.</p>
+      </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="contact" class="max-w-6xl mx-auto px-6 py-12 text-gray-600">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+        <div>
+          <h4 class="font-serif text-lux-forest">Get in touch</h4>
+          <p class="mt-3">Address: Cairo (example) • Phone: <strong class="text-lux-forest">+20 1XXXXXXXXX</strong></p>
         </div>
-    </div>
-    <p class="hint-text">Surprise😍</p>
-    <button onclick="restart()" class="close-btn">ابدئي من الأول تاني</button>
-</div>
+        <div class="text-sm">
+          <div>Follow us: Instagram • Facebook</div>
+          <div class="mt-3 text-xs text-gray-400">© <span id="year"></span> Abo El‑Saud Sweets</div>
+        </div>
+      </div>
+    </footer>
+  </main>
 
-<script src="script.js"></script>
+  <!-- PRODUCT MODAL (Explore Menu) -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">
+    <div class="bg-ivory rounded-2xl max-w-3xl w-full shadow-lux overflow-hidden">
+      <div class="flex items-center justify-between p-6 border-b">
+        <h3 id="modalTitle" class="font-serif text-lux-forest text-xl">Menu</h3>
+        <button id="closeModal" class="text-gray-600 p-2 rounded-md">Close ✕</button>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" id="modalProducts">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CART SLIDEOUT -->
+  <aside id="cartSidebar" class="fixed right-0 top-0 h-full w-full md:w-[420px] z-50 bg-white transform translate-x-full transition-transform shadow-2xl p-6 overflow-auto" aria-hidden="true" role="dialog" aria-label="Shopping cart">
+    <div class="flex items-start justify-between">
+      <h3 class="font-serif text-2xl text-lux-forest">Your Order <span class="text-sm text-gray-500">سلة المشتريات</span></h3>
+      <button id="closeCart" class="p-2 rounded-md text-gray-600">Close</button>
+    </div>
+
+    <div id="cartItems" class="mt-6 space-y-4">
+      <!-- items injected here -->
+      <div class="text-gray-400">Your cart is empty</div>
+    </div>
+
+    <div class="mt-6 border-t pt-4">
+      <div class="flex justify-between items-center">
+        <div class="text-sm text-gray-600">Subtotal</div>
+        <div id="subtotal" class="text-lg font-semibold text-lux-forest">0 EGP</div>
+      </div>
+
+      <form id="checkoutForm" class="mt-4 space-y-3">
+        <div>
+          <label class="text-sm text-gray-700">ادخال العنوان (Delivery Address)</label>
+          <input required id="inputAddress" name="address" placeholder="شارع، بناية، الحي" class="mt-2 w-full border rounded-md p-3 text-sm" />
+        </div>
+        <div>
+          <label class="text-sm text-gray-700">الاسم (Name)</label>
+          <input required id="inputName" name="name" placeholder="الاسم الكامل" class="mt-2 w-full border rounded-md p-3 text-sm" />
+        </div>
+        <div>
+          <label class="text-sm text-gray-700">الهاتف (Phone)</label>
+          <input required id="inputPhone" name="phone" placeholder="+20 1XXXXXXXXX" class="mt-2 w-full border rounded-md p-3 text-sm" />
+        </div>
+
+        <div class="mt-4 flex gap-3">
+          <button type="button" id="whatsappOrder" class="flex-1 py-3 rounded-full btn-gold text-white">Order via WhatsApp — طلب عبر الواتس</button>
+          <button type="button" id="clearCart" class="py-3 px-4 rounded-full border">Clear</button>
+        </div>
+      </form>
+
+      <p class="text-xs text-gray-400 mt-3">Your order will be opened in WhatsApp for confirmation and final submission. Please ensure your phone number is correct.</p>
+    </div>
+  </aside>
+
+  <!-- Small container for flying visual (cloned image) -->
+  <div id="flyLayer" class="fixed pointer-events-none top-0 left-0 w-full h-full z-50"></div>
+
+  <script>
+    // ---------- Utilities & initial UI ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animate on load (staggered)
+    window.addEventListener('DOMContentLoaded', () => {
+      const els = Array.from(document.querySelectorAll('[data-animate]'));
+      els.forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 80 + 120));
+    });
+
+    // ---------- Simple SPA/UX interactions ----------
+    const cartBtn = document.getElementById('cartBtn');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCart = document.getElementById('closeCart');
+    const viewCartCTA = document.getElementById('viewCartCTA');
+    const cartCountEl = document.getElementById('cartCount');
+    const cartItemsEl = document.getElementById('cartItems');
+    const subtotalEl = document.getElementById('subtotal');
+    const whatsappOrder = document.getElementById('whatsappOrder');
+    const clearCartBtn = document.getElementById('clearCart');
+
+    cartBtn.addEventListener('click', openCart);
+    closeCart.addEventListener('click', closeCartFunc);
+    viewCartCTA.addEventListener('click', openCart);
+
+    function openCart() {
+      cartSidebar.style.transform = 'translateX(0%)';
+      cartBtn.setAttribute('aria-expanded', 'true');
+    }
+    function closeCartFunc() {
+      cartSidebar.style.transform = 'translateX(100%)';
+      cartBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    // ---------- Local cart state ----------
+    let cart = []; // {id,name,price,qty}
+
+    function updateCartUI() {
+      cartCountEl.textContent = cart.reduce((s,i) => s + i.qty, 0);
+      // items
+      cartItemsEl.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsEl.innerHTML = '<div class="text-gray-400">Your cart is empty</div>';
+      } else {
+        cart.forEach((it, idx) => {
+          const row = document.createElement('div');
+          row.className = 'flex items-center gap-4';
+          row.innerHTML = `
+            <div class="w-14 h-14 rounded-lg bg-gray-100 flex items-center justify-center text-sm text-gray-700">${it.name.slice(0,2)}</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-medium text-gray-800">${escapeHtml(it.name)}</div>
+              <div class="text-xs text-gray-500">${it.price} EGP</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="qtyBtn text-gray-600 px-2 py-1 rounded border" data-idx="${idx}" data-op="-">−</button>
+              <div class="px-3">${it.qty}</div>
+              <button class="qtyBtn text-gray-600 px-2 py-1 rounded border" data-idx="${idx}" data-op="+">+</button>
+            </div>
+            <div class="ml-4 text-sm text-gray-800 font-semibold">${(it.price * it.qty)} EGP</div>
+          `;
+          cartItemsEl.appendChild(row);
+        });
+        // attach qty handlers
+        Array.from(cartItemsEl.querySelectorAll('.qtyBtn')).forEach(btn => {
+          btn.addEventListener('click', e => {
+            const idx = Number(btn.getAttribute('data-idx'));
+            const op = btn.getAttribute('data-op');
+            if (op === '+') cart[idx].qty++;
+            else cart[idx].qty = Math.max(0, cart[idx].qty - 1);
+            if (cart[idx].qty === 0) cart.splice(idx, 1);
+            updateCartUI();
+          });
+        });
+      }
+      const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
+      subtotalEl.textContent = subtotal + ' EGP';
+    }
+
+    function addToCart(item) {
+      // item = {name, price}
+      const found = cart.find(c => c.name === item.name);
+      if (found) found.qty++;
+      else cart.push({ id: Date.now() + Math.random(), name: item.name, price: item.price, qty: 1 });
+      // small fly animation
+      triggerFly();
+      updateCartUI();
+    }
+
+    // Quick add buttons on cards
+    document.querySelectorAll('.addQuick').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const name = btn.getAttribute('data-name');
+        const price = Number(btn.getAttribute('data-price')) || 0;
+        addToCart({name, price});
+        openCart();
+      });
+    });
+
+    // ESC to close cart / modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCartFunc();
+        closeModal();
+      }
+    });
+
+    // Clear cart
+    clearCartBtn.addEventListener('click', () => {
+      cart = [];
+      updateCartUI();
+    });
+
+    // ---------- Product modal (Explore Menu) ----------
+    const productModal = document.getElementById('productModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalProducts = document.getElementById('modalProducts');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    const sampleProducts = {
+      "Luxury Cakes": [
+        {name: 'Signature Slice', price: 85, desc: 'Single slice — layered mousse & ganache.'},
+        {name: 'Whole Celebration Cake (6")', price: 950, desc: 'Serves 8-12, custom finishes.'}
+      ],
+      "Premium Tarts": [
+        {name: 'Lemon Tart', price: 45, desc: 'Tangy lemon curd, almond crust.'},
+        {name: 'Chocolate Hazelnut Tart', price: 60, desc: 'Silky chocolate & praline.'}
+      ],
+      "French Macarons": [
+        {name: 'Macaron Box - 6', price: 120, desc: 'Assorted flavors.'},
+        {name: 'Macaron Box - 12', price: 220, desc: 'Premium selection.'}
+      ],
+      "Eclairs & Choux": [
+        {name: 'Classic Eclair', price: 38, desc: 'Vanilla custard, chocolate glaze.'},
+        {name: 'Choux Pastry Box - 8', price: 160, desc: 'Assorted creams.'}
+      ]
+    };
+
+    document.querySelectorAll('.exploreBtn').forEach(b => {
+      b.addEventListener('click', () => {
+        const cat = b.getAttribute('data-cat');
+        openModal(cat);
+      });
+    });
+
+    function openModal(category) {
+      modalTitle.textContent = category;
+      modalProducts.innerHTML = '';
+      const items = sampleProducts[category] || [];
+      items.forEach(it => {
+        const c = document.createElement('div');
+        c.className = 'p-4 border rounded-lg bg-white';
+        c.innerHTML = `
+          <div class="flex flex-col h-full">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="font-medium text-gray-800">${escapeHtml(it.name)}</div>
+                <div class="text-xs text-gray-500">${escapeHtml(it.desc)}</div>
+              </div>
+              <div class="text-sm font-semibold text-lux-forest">${it.price} EGP</div>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <button class="px-3 py-2 rounded-full border addFromModal" data-name="${escapeHtmlAttr(it.name)}" data-price="${it.price}">Add to cart</button>
+              <button class="px-3 py-2 rounded-full border text-gray-600" onclick="alert('More details coming soon')">Details</button>
+            </div>
+          </div>
+        `;
+        modalProducts.appendChild(c);
+      });
+      // attach event listeners
+      productModal.classList.remove('hidden');
+      setTimeout(()=> productModal.classList.add('in'), 10);
+      Array.from(modalProducts.querySelectorAll('.addFromModal')).forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name = btn.getAttribute('data-name');
+          const price = Number(btn.getAttribute('data-price'));
+          addToCart({name, price});
+        });
+      });
+    }
+
+    function closeModal() {
+      productModal.classList.add('hidden');
+    }
+    closeModalBtn.addEventListener('click', closeModal);
+    productModal.addEventListener('click', (e) => {
+      if (e.target === productModal) closeModal();
+    });
+
+    // ---------- WhatsApp Checkout ----------
+    whatsappOrder.addEventListener('click', () => {
+      const addr = document.getElementById('inputAddress').value.trim();
+      const name = document.getElementById('inputName').value.trim();
+      const phone = document.getElementById('inputPhone').value.trim();
+      if (!addr || !name || !phone) {
+        alert('Please fill required fields: Address, Name, and Phone. الرجاء ملء الحقول المطلوبة');
+        return;
+      }
+      if (cart.length === 0) {
+        alert('Your cart is empty. سلة المشتريات فارغة');
+        return;
+      }
+
+      // Build message (clean & well formatted)
+      let lines = [];
+      lines.push('Abo El-Saud Sweets — New Order / طلب جديد');
+      lines.push('--------------------------------------');
+      cart.forEach(it => {
+        lines.push(`${it.qty} x ${it.name} — ${it.price} EGP each — ${(it.qty * it.price)} EGP`);
+      });
+      const total = cart.reduce((s,i) => s + i.price * i.qty, 0);
+      lines.push('--------------------------------------');
+      lines.push(`Total: ${total} EGP`);
+      lines.push('');
+      lines.push('Delivery Address / العنوان:');
+      lines.push(addr);
+      lines.push('');
+      lines.push(`Name: ${name}`);
+      lines.push(`Phone: ${phone}`);
+      lines.push('');
+      lines.push('Notes:');
+
+      const message = lines.join('\n');
+
+      // Replace YOUR_NUMBER with your number (international format, no +)
+      const WHATSAPP_NUMBER = 'YOUR_NUMBER';
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+      // Open in new tab
+      window.open(url, '_blank');
+
+      // Optionally keep the cart or clear — here we leave it for user to confirm
+    });
+
+    // ---------- Small visual fly animation indicating add-to-cart ----------
+    const flyLayer = document.getElementById('flyLayer');
+    function triggerFly() {
+      const el = document.createElement('div');
+      el.className = 'absolute';
+      el.style.left = (window.innerWidth - 120) + 'px';
+      el.style.top = '80px';
+      el.style.width = '60px';
+      el.style.height = '60px';
+      el.style.borderRadius = '12px';
+      el.style.background = 'linear-gradient(90deg,#cca464,#dfa85d)';
+      el.style.boxShadow = '0 8px 20px rgba(27,46,30,0.12)';
+      el.style.zIndex = 9999;
+      el.style.display = 'block';
+      el.style.animation = 'flyToCart 700ms forwards cubic-bezier(.2,.9,.2,1)';
+      flyLayer.appendChild(el);
+      setTimeout(()=> flyLayer.removeChild(el), 750);
+    }
+
+    // Escape HTML handlers
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return String(text).replace(/[&<>"']/g, m => map[m]);
+    }
+    function escapeHtmlAttr(text) {
+      return String(text).replace(/"/g,'&quot;');
+    }
+
+    // Expose basic functions for debugging in console
+    window.addToCart = addToCart;
+    window._cart = cart;
+    window.updateCartUI = updateCartUI;
+  </script>
 </body>
 </html>
