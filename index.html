@@ -1,634 +1,854 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abo El-Saud Sweets - حلويات أبو السعود</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
-    <style>
-        :root {
-            --primary-teal: #2c5e61;
-            --primary-dark-teal: #244d50;
-            --pure-white: #ffffff;
-            --soft-gray: #e2e4e5;
-            --text-dark: #1a1a1a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abo El-Saud Sweets | حلويات أبو السعود</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,500;1,600&family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--pure-white);
-            color: var(--text-dark);
-        }
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          forest: '#1b2e1e',
+          'forest-deep': '#112014',
+          'forest-light': '#2a4530',
+          ivory: '#fdfbf7',
+          'ivory-soft': '#f6f0e4',
+          gold: '#cca464',
+          'gold-light': '#e9cd96',
+          'gold-deep': '#a9824c',
+          ink: '#241f18',
+        },
+        fontFamily: {
+          display: ['Playfair Display', 'serif'],
+          arabic: ['Amiri', 'serif'],
+          sans: ['Inter', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
 
-        html[dir="rtl"] body {
-            direction: rtl;
-        }
+<style>
+  :root{ --gold:#cca464; --gold-light:#e9cd96; --forest:#1b2e1e; }
+  *{ scroll-behavior:smooth; }
+  body{ font-family:'Inter',sans-serif; background:#fdfbf7; color:#241f18; overflow-x:hidden; }
+  ::selection{ background:#cca464; color:#1b2e1e; }
 
-        /* Staggered fade-in animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  ::-webkit-scrollbar{ width:8px; height:8px; }
+  ::-webkit-scrollbar-track{ background:#f6f0e4; }
+  ::-webkit-scrollbar-thumb{ background:#cca464; border-radius:8px; }
 
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
+  .gold-text{
+    background:linear-gradient(120deg,#e9cd96,#cca464 45%,#a9824c);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
 
-        .stagger-1 { animation-delay: 0.1s; }
-        .stagger-2 { animation-delay: 0.2s; }
-        .stagger-3 { animation-delay: 0.3s; }
-        .stagger-4 { animation-delay: 0.4s; }
-        .stagger-5 { animation-delay: 0.5s; }
+  .arabic{ font-family:'Amiri',serif; }
 
-        /* Navbar */
-        .navbar {
-            background-color: var(--pure-white);
-            border-bottom: 2px solid var(--soft-gray);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 2px 8px rgba(44, 94, 97, 0.08);
-        }
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
+  .reveal.show{ opacity:1; transform:translateY(0); }
+  .d1{transition-delay:.05s}.d2{transition-delay:.15s}.d3{transition-delay:.25s}.d4{transition-delay:.35s}.d5{transition-delay:.45s}.d6{transition-delay:.55s}
 
-        /* Primary teal background */
-        .bg-primary-teal {
-            background-color: var(--primary-teal);
-        }
+  @keyframes floaty{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-14px) } }
+  .floaty{ animation:floaty 5s ease-in-out infinite; }
 
-        .bg-primary-dark-teal {
-            background-color: var(--primary-dark-teal);
-        }
+  @keyframes marquee{ 0%{ transform:translateX(0) } 100%{ transform:translateX(-50%) } }
+  .marquee-track{ animation:marquee 28s linear infinite; }
 
-        .text-primary-teal {
-            color: var(--primary-teal);
-        }
+  @keyframes pulse-ring{ 0%{ box-shadow:0 0 0 0 rgba(37,211,102,.55) } 100%{ box-shadow:0 0 0 16px rgba(37,211,102,0) } }
+  .pulse-wa{ animation:pulse-ring 2.2s cubic-bezier(.4,0,.6,1) infinite; }
 
-        /* Category Pills */
-        .category-pill {
-            padding: 8px 20px;
-            border-radius: 24px;
-            border: 2px solid var(--soft-gray);
-            background-color: var(--pure-white);
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            white-space: nowrap;
-        }
+  .nav-pill{ position:absolute; top:4px; bottom:4px; left:0; border-radius:9999px; background:rgba(204,164,100,.16); transition:transform .4s cubic-bezier(.22,1,.36,1), width .4s cubic-bezier(.22,1,.36,1); }
 
-        .category-pill:hover {
-            border-color: var(--primary-teal);
-            color: var(--primary-teal);
-        }
+  .card-hover{ transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease; }
+  .card-hover:hover{ transform:translateY(-8px); box-shadow:0 24px 48px -12px rgba(27,46,30,.18); }
 
-        .category-pill.active {
-            background-color: var(--primary-teal);
-            color: var(--pure-white);
-            border-color: var(--primary-teal);
-        }
+  #cart-overlay{ transition:opacity .4s ease; }
+  #cart-sidebar{ transition:transform .45s cubic-bezier(.22,1,.36,1); }
 
-        /* Shopping Cart Badge */
-        .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #ff6b6b;
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
+  .toast{ transform:translateY(140%); opacity:0; transition:transform .45s cubic-bezier(.22,1,.36,1), opacity .45s ease; }
+  .toast.show{ transform:translateY(0); opacity:1; }
 
-        /* Product Cards */
-        .product-card {
-            background-color: var(--pure-white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(44, 94, 97, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid var(--soft-gray);
-        }
+  input:focus, textarea:focus, button:focus-visible, a:focus-visible{ outline:2px solid #cca464; outline-offset:2px; }
 
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(44, 94, 97, 0.15);
-        }
+  .product-card.hidden-cat{ display:none; }
 
-        .product-image {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, var(--soft-gray) 0%, #d4d6d7 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--primary-teal);
-            margin-bottom: 8px;
-        }
-
-        .product-description {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .product-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-teal);
-            margin-bottom: 12px;
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: var(--primary-teal);
-            color: var(--pure-white);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .add-to-cart-btn:hover {
-            background-color: var(--primary-dark-teal);
-            transform: scale(1.02);
-        }
-
-        /* Modal / Slide-out Cart */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            z-index: 100;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .cart-modal {
-            background-color: var(--pure-white);
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 100%;
-            max-width: 450px;
-            height: 100vh;
-            z-index: 110;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            box-shadow: -4px 0 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .cart-modal.active {
-            transform: translateX(0);
-        }
-
-        html[dir="rtl"] .cart-modal {
-            right: auto;
-            left: 0;
-            transform: translateX(-100%);
-        }
-
-        html[dir="rtl"] .cart-modal.active {
-            transform: translateX(0);
-        }
-
-        .cart-header {
-            background-color: var(--primary-teal);
-            color: var(--pure-white);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--soft-gray);
-            margin-bottom: 12px;
-        }
-
-        .cart-item-info {
-            flex: 1;
-        }
-
-        .cart-item-name {
-            font-weight: 600;
-            color: var(--primary-teal);
-            margin-bottom: 4px;
-        }
-
-        .cart-item-quantity {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .cart-item-price {
-            font-weight: 600;
-            color: var(--primary-teal);
-            margin-right: 12px;
-        }
-
-        .remove-item-btn {
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 4px 8px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .remove-item-btn:hover {
-            background-color: #ee5a52;
-        }
-
-        .checkout-form {
-            padding: 20px;
-            border-top: 2px solid var(--soft-gray);
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: var(--primary-teal);
-            margin-bottom: 6px;
-            font-size: 13px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--soft-gray);
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary-teal);
-            box-shadow: 0 0 0 3px rgba(44, 94, 97, 0.1);
-        }
-
-        .cart-summary {
-            padding: 20px;
-            border-top: 2px solid var(--soft-gray);
-            background-color: var(--soft-gray);
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .summary-row.total {
-            font-weight: 700;
-            color: var(--primary-teal);
-            font-size: 16px;
-            border-top: 1px solid rgba(44, 94, 97, 0.2);
-            padding-top: 8px;
-            margin-top: 8px;
-        }
-
-        .whatsapp-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: #25d366;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            margin-top: 12px;
-        }
-
-        .whatsapp-btn:hover {
-            background-color: #1fa952;
-            transform: scale(1.02);
-        }
-
-        .whatsapp-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-dark-teal) 100%);
-            color: var(--pure-white);
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            opacity: 0.9;
-            margin-bottom: 24px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .cart-modal {
-                max-width: 100%;
-            }
-
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .category-pills-container {
-                scroll-snap-type: x mandatory;
-            }
-
-            .category-pill {
-                scroll-snap-align: start;
-            }
-
-            .category-pill.active {
-                margin-left: 8px;
-            }
-        }
-
-        /* Empty Cart Message */
-        .empty-cart-message {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        .empty-cart-message svg {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 12px;
-            opacity: 0.5;
-        }
-
-        /* Language Switcher */
-        .lang-switch-btn {
-            background-color: var(--primary-teal);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s ease;
-        }
-
-        .lang-switch-btn:hover {
-            background-color: var(--primary-dark-teal);
-            transform: scale(1.05);
-        }
-    </style>
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo / Brand Name -->
-                <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-primary-teal">
-                        <span class="hidden sm:inline">Abo El-Saud Sweets</span>
-                        <span class="sm:hidden text-lg">أبو السعود</span>
-                    </h1>
-                </div>
 
-                <!-- Category Pills (Center) -->
-                <div class="flex-1 mx-4 hidden sm:block">
-                    <div class="category-pills-container flex justify-center gap-3 overflow-x-auto pb-2">
-                        <button class="category-pill active" data-category="all">All</button>
-                        <button class="category-pill" data-category="cakes">🍰 Cakes</button>
-                        <button class="category-pill" data-category="tarts">🥧 Tarts</button>
-                        <button class="category-pill" data-category="macarons">🍪 Macarons</button>
-                        <button class="category-pill" data-category="eclairs">✨ Eclairs</button>
-                    </div>
-                </div>
+<body class="bg-ivory text-ink antialiased">
 
-                <!-- Right Actions: Language Switcher & Cart -->
-                <div class="flex items-center gap-3">
-                    <button class="lang-switch-btn" id="langSwitcher">🌐 AR/EN</button>
-                    <div class="relative">
-                        <button id="cartBtn" class="relative p-2 hover:bg-soft-gray rounded-lg transition">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary-teal">
-                                <circle cx="9" cy="21" r="1"></circle>
-                                <circle cx="20" cy="21" r="1"></circle>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                            </svg>
-                            <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+<!-- ============ ICON SPRITE ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <symbol id="ic-cake" viewBox="0 0 100 100">
+    <path d="M22 78 L22 56 Q22 50 28 50 L72 50 Q78 50 78 56 L78 78 Z" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+    <path d="M22 64 Q30 58 38 64 Q46 70 54 64 Q62 58 70 64 Q74 67 78 64" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M30 50 L30 38 Q30 32 36 32 L64 32 Q70 32 70 38 L70 50" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+    <path d="M38 32 Q38 24 44 24" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <line x1="50" y1="32" x2="50" y2="18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M50 18 Q53 12 50 8 Q47 12 50 18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  </symbol>
 
-            <!-- Mobile Category Pills -->
-            <div class="sm:hidden mb-3">
-                <div class="category-pills-container flex gap-2 overflow-x-auto pb-2">
-                    <button class="category-pill active" data-category="all">All</button>
-                    <button class="category-pill" data-category="cakes">Cakes</button>
-                    <button class="category-pill" data-category="tarts">Tarts</button>
-                    <button class="category-pill" data-category="macarons">Macarons</button>
-                    <button class="category-pill" data-category="eclairs">Eclairs</button>
-                </div>
-            </div>
+  <symbol id="ic-tart" viewBox="0 0 100 100">
+    <circle cx="50" cy="56" r="30" stroke="currentColor" stroke-width="2.6" fill="none"/>
+    <path d="M20 56 Q24 50 28 56 Q32 62 36 56 Q40 50 44 56 Q48 62 52 56 Q56 50 60 56 Q64 62 68 56 Q72 50 76 56 Q78 59 80 56" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="42" cy="42" r="3.4" stroke="currentColor" stroke-width="2.2" fill="none"/>
+    <circle cx="56" cy="38" r="3.4" stroke="currentColor" stroke-width="2.2" fill="none"/>
+    <circle cx="62" cy="50" r="3.4" stroke="currentColor" stroke-width="2.2" fill="none"/>
+    <path d="M38 50 Q44 44 50 50 Q56 56 50 62" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ic-macaron" viewBox="0 0 100 100">
+    <path d="M22 42 Q22 30 50 30 Q78 30 78 42 Q78 48 50 48 Q22 48 22 42 Z" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+    <path d="M24 50 Q34 56 50 56 Q66 56 76 50" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <path d="M22 58 Q22 70 50 70 Q78 70 78 58 Q78 52 50 52 Q22 52 22 58 Z" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="ic-eclair" viewBox="0 0 100 100">
+    <path d="M16 52 Q16 38 30 38 L70 38 Q84 38 84 52 Q84 66 70 66 L30 66 Q16 66 16 52 Z" stroke="currentColor" stroke-width="2.6" fill="none"/>
+    <path d="M24 44 Q32 50 40 44 Q48 38 56 44 Q64 50 72 44 Q76 41 80 44" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="ic-leaf" viewBox="0 0 60 24">
+    <path d="M2 12 Q20 2 58 12 Q20 22 2 12 Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+    <line x1="2" y1="12" x2="58" y2="12" stroke="currentColor" stroke-width="1.2"/>
+  </symbol>
+
+  <symbol id="ic-cart" viewBox="0 0 24 24">
+    <path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.4a2 2 0 0 0 2-1.6L21 8H6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="9" cy="21" r="1.4" fill="currentColor"/>
+    <circle cx="18" cy="21" r="1.4" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="ic-whatsapp" viewBox="0 0 32 32">
+    <path fill="currentColor" d="M16.04 3C9.1 3 3.46 8.64 3.46 15.58c0 2.62.78 5.04 2.12 7.06L4 29l6.55-1.72a12.46 12.46 0 0 0 5.49 1.27c6.94 0 12.58-5.64 12.58-12.57C28.62 8.64 22.98 3 16.04 3Zm0 22.85c-1.92 0-3.74-.5-5.32-1.45l-.38-.22-3.89 1.02 1.04-3.8-.25-.39a10.3 10.3 0 0 1-1.6-5.43c0-5.71 4.65-10.36 10.4-10.36 5.74 0 10.39 4.65 10.39 10.36 0 5.72-4.65 10.27-10.39 10.27Zm5.7-7.7c-.31-.16-1.85-.91-2.13-1.02-.29-.1-.5-.16-.71.16-.21.31-.81 1.02-.99 1.23-.18.21-.37.23-.68.08-1.84-.92-3.05-1.64-4.26-3.72-.32-.55.32-.51.92-1.7.1-.21.05-.39-.05-.55-.1-.16-.71-1.7-.97-2.34-.26-.62-.52-.54-.71-.55-.18-.01-.39-.01-.6-.01-.21 0-.55.08-.84.39-.29.31-1.12 1.1-1.12 2.68 0 1.58 1.15 3.11 1.31 3.32.16.21 2.23 3.4 5.41 4.63 2.68 1.05 3.23.84 3.81.78.58-.05 1.85-.76 2.11-1.49.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.37Z"/>
+  </symbol>
+</defs>
+</svg>
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="mx-auto max-w-7xl px-5 md:px-10">
+    <div class="mt-4 flex items-center justify-between rounded-full border border-gold/25 bg-forest/85 backdrop-blur-xl px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <svg viewBox="0 0 60 60" class="w-9 h-9 md:w-10 md:h-10">
+          <circle cx="30" cy="30" r="27" stroke="#cca464" stroke-width="1.6" fill="none"/>
+          <circle cx="30" cy="30" r="21" stroke="#cca464" stroke-width="1" fill="none" opacity=".6"/>
+          <text x="30" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="17" fill="#e9cd96">A·S</text>
+        </svg>
+        <div class="leading-tight">
+          <div class="font-arabic text-lg md:text-xl text-ivory tracking-wide">أبو السعود</div>
+          <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-gold-light/80">Abo El-Saud Sweets</div>
         </div>
-    </nav>
+      </a>
 
-    <!-- Modal Overlay -->
-    <div class="modal-overlay" id="modalOverlay"></div>
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex relative items-center gap-1 text-sm" id="desktop-nav">
+        <div class="nav-pill" id="nav-pill"></div>
+        <a data-nav href="#hero" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">الرئيسية</a>
+        <a data-nav href="#categories" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">الأقسام</a>
+        <a data-nav href="#menu" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">المنيو</a>
+        <a data-nav href="#about" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">قصتنا</a>
+        <a data-nav href="#visit" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">تواصل معنا</a>
+      </nav>
 
-    <!-- Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-header">
-            <h2 id="cartTitle">Shopping Cart</h2>
-            <button id="closeCartBtn" class="text-2xl leading-none hover:opacity-70 transition">&times;</button>
-        </div>
+      <!-- Right actions -->
+      <div class="flex items-center gap-2 md:gap-3">
+        <button id="cart-btn" aria-label="Open cart" class="relative w-11 h-11 rounded-full bg-gold/10 hover:bg-gold/20 border border-gold/30 flex items-center justify-center text-gold-light transition-colors">
+          <svg class="w-5 h-5"><use href="#ic-cart"/></svg>
+          <span id="cart-count" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-gold text-forest text-[11px] font-bold flex items-center justify-center shadow">0</span>
+        </button>
+        <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 rounded-full border border-gold/30 flex items-center justify-center text-gold-light" aria-label="Menu">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
 
-        <div class="cart-content" id="cartContent">
-            <div class="empty-cart-message">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <p id="emptyMsg">Your cart is empty</p>
-            </div>
-        </div>
+<!-- Mobile nav overlay -->
+<div id="mobile-nav" class="fixed inset-0 z-[55] bg-forest/97 backdrop-blur-xl flex flex-col items-center justify-center gap-7 text-xl translate-x-full transition-transform duration-500 lg:hidden">
+  <button id="mobile-nav-close" class="absolute top-6 right-6 w-11 h-11 rounded-full border border-gold/30 flex items-center justify-center text-gold-light" aria-label="Close menu">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+  </button>
+  <a data-nav-mobile href="#hero" class="text-ivory/90 hover:text-gold-light font-display">الرئيسية</a>
+  <a data-nav-mobile href="#categories" class="text-ivory/90 hover:text-gold-light font-display">الأقسام</a>
+  <a data-nav-mobile href="#menu" class="text-ivory/90 hover:text-gold-light font-display">المنيو</a>
+  <a data-nav-mobile href="#about" class="text-ivory/90 hover:text-gold-light font-display">قصتنا</a>
+  <a data-nav-mobile href="#visit" class="text-ivory/90 hover:text-gold-light font-display">تواصل معنا</a>
+</div>
 
-        <div class="checkout-form">
-            <form id="checkoutForm">
-                <div class="form-group">
-                    <label class="form-label" for="deliveryAddress">Delivery Address</label>
-                    <input type="text" id="deliveryAddress" class="form-input" placeholder="Enter your address" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="customerName">Full Name</label>
-                    <input type="text" id="customerName" class="form-input" placeholder="Your name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="phoneNumber">Phone Number</label>
-                    <input type="tel" id="phoneNumber" class="form-input" placeholder="Your phone" required>
-                </div>
-            </form>
-        </div>
+<!-- ============ HERO ============ -->
+<section id="hero" class="relative bg-gradient-to-b from-forest via-forest to-forest-deep pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden scroll-mt-24">
+  <div class="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full bg-gold/10 blur-3xl"></div>
 
-        <div class="cart-summary">
-            <div class="summary-row">
-                <span id="subtotalLabel">Subtotal:</span>
-                <span id="subtotalValue">0 LE</span>
-            </div>
-            <div class="summary-row total">
-                <span id="totalLabel">Total:</span>
-                <span id="totalValue">0 LE</span>
-            </div>
-            <button class="whatsapp-btn" id="whatsappBtn" disabled>📱 Order via WhatsApp</button>
-        </div>
+  <div class="relative mx-auto max-w-7xl px-6 md:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <!-- Text -->
+    <div>
+      <div class="reveal flex items-center gap-3 mb-6">
+        <span class="h-px w-10 bg-gold-light/60"></span>
+        <span class="text-gold-light text-xs uppercase tracking-[0.3em]">Cairo's Finest Western Patisserie</span>
+      </div>
+
+      <h1 class="reveal d1 font-arabic text-5xl md:text-6xl text-ivory leading-[1.3] mb-3">
+        حلويات <span class="gold-text">أبو السعود</span>
+      </h1>
+      <p class="reveal d2 font-display italic text-2xl md:text-3xl text-gold-light/90 mb-6">A Symphony of French &amp; Western Pastry</p>
+
+      <p class="reveal d3 text-ivory/70 leading-relaxed max-w-md mb-9">
+        منذ أكثر من خمسة عشر عامًا نصنع أرقى أنواع الكيك والتارت والماكرون والإكلير بمكونات فاخرة مستوردة، لنقدّم لك تجربة حلويات لا تُنسى تليق بأرقى المناسبات.
+      </p>
+
+      <div class="reveal d4 flex flex-wrap items-center gap-4 mb-10">
+        <a href="#menu" class="px-8 py-4 rounded-full bg-gold hover:bg-gold-light text-forest font-semibold text-sm tracking-wide transition-colors shadow-lg shadow-gold/20">
+          اكتشف المنيو
+        </a>
+        <a href="#visit" class="px-8 py-4 rounded-full border border-gold-light/40 text-ivory hover:bg-ivory/5 text-sm tracking-wide transition-colors">
+          تواصل معنا
+        </a>
+      </div>
+
+      <div class="reveal d5 flex flex-wrap gap-x-8 gap-y-3 text-ivory/60 text-xs">
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-leaf"/></svg>مكونات فرنسية فاخرة</span>
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-leaf"/></svg>تحضير يومي طازج</span>
+        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-gold"><use href="#ic-leaf"/></svg>توصيل داخل القاهرة</span>
+      </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero animate-fade-in-up">
-        <div class="max-w-4xl mx-auto">
-            <h1 id="heroTitle" class="stagger-1 animate-fade-in-up">Premium Artisan Sweets</h1>
-            <p id="heroSubtitle" class="stagger-2 animate-fade-in-up">Handcrafted luxury desserts from Abo El-Saud</p>
+    <!-- Visual / signature medallion -->
+    <div class="reveal d3 relative flex justify-center lg:justify-end">
+      <div class="relative w-72 h-72 md:w-96 md:h-96">
+        <div class="absolute inset-0 rounded-full border border-gold-light/25"></div>
+        <div class="absolute inset-6 rounded-full border border-gold-light/15"></div>
+        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-ivory-soft/10 to-transparent"></div>
+        <div class="absolute inset-10 rounded-full bg-forest-light/40 flex items-center justify-center">
+          <svg viewBox="0 0 100 100" class="w-40 h-40 md:w-52 md:h-52 text-gold-light">
+            <use href="#ic-cake"/>
+          </svg>
         </div>
-    </section>
+        <!-- orbit dots -->
+        <span class="absolute top-2 left-1/2 w-2.5 h-2.5 rounded-full bg-gold floaty"></span>
+        <span class="absolute bottom-6 left-6 w-2 h-2 rounded-full bg-gold-light floaty" style="animation-delay:1s"></span>
+        <span class="absolute top-10 right-2 w-2 h-2 rounded-full bg-gold-light floaty" style="animation-delay:2s"></span>
+      </div>
 
-    <!-- Products Section -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productsGrid">
-            <!-- Products will be inserted here by JavaScript -->
+      <!-- floating stat card -->
+      <div class="floaty absolute -bottom-4 left-0 md:left-4 bg-ivory/95 backdrop-blur rounded-2xl shadow-2xl px-5 py-4 flex items-center gap-3 border border-gold/10">
+        <div class="flex -space-x-1 text-gold">
+          <svg viewBox="0 0 20 20" class="w-4 h-4 fill-gold"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 14.9 4.4 18.1l1.4-6.3L1 7.5l6.4-.6z"/></svg>
         </div>
-    </main>
+        <div class="leading-tight">
+          <div class="font-display font-bold text-forest text-sm">4.9 / 5</div>
+          <div class="text-[11px] text-forest/60">+500 عميل سعيد</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // ==================== PRODUCT DATA ====================
-        const products = [
-            {
-                id: 1,
-                name: 'Chocolate Eclair',
-                nameAr: 'إكلير الشوكولاتة',
-                category: 'eclairs',
-                emoji: '🍫',
-                price: 45,
-                description: 'Premium dark chocolate eclair with silky filling',
-                descriptionAr: 'إكلير الشوكولاتة الداكنة الفاخرة مع الحشوة الحريرية'
-            },
-            {
-                id: 2,
-                name: 'Vanilla Macaron',
-                nameAr: 'ماكارون الفانيليا',
-                category: 'macarons',
-                emoji: '🍪',
-                price: 35,
-                description: 'Delicate almond meringue with vanilla buttercream',
-                descriptionAr: 'رغيف اللوز الرقيق مع كريم الفانيليا'
-            },
-            {
-                id: 3,
-                name: 'Strawberry Tart',
-                nameAr: 'تارت الفراولة',
-                category: 'tarts',
-                emoji: '🍓',
-                price: 50,
-                description: 'Fresh strawberries on custard cream with pastry shell',
-                descriptionAr: 'فراولة طازة على كريمة الكاسترد مع قشرة العجين'
-            },
-            {
-                id: 4,
-                name: 'Pistachio Cake',
-                nameAr: 'كيك الفستق',
-                category: 'cakes',
-                emoji: '🎂',
-                price: 85,
-                description: 'Moist pistachio sponge with cream cheese frosting',
-                descriptionAr: 'كعكة الفستق الرطبة مع تجميد جبنة الكريمة'
-            },
-            {
-                id: 5,
-                name: 'Coffee Eclair',
-                nameAr: 'إكلير القهوة',
-                category: 'eclairs',
-                emoji: '☕',
-                price: 48,
-                description: 'Aromatic coffee eclair with mocha ganache',
-                descriptionAr: 'إكلير القهوة العطري مع جناش الموكا'
-            },
-            {
-                id: 6,
-                name: 'Rose Macaron',
-                nameAr: 'ماكارون الورد',
-                category: 'macarons',
-                emoji: '🌹',
-                price: 40,
-                description: 'Exotic rose-flavored macaron with floral notes',
-                descriptionAr: 'ماكارون بنكهة الورد مع نكهات زهرية'
-            },
-            {
-                id: 7,
-                name: 'Lemon Tart',
-                nameAr: 'تارت الليمون',
-                c
+<!-- ============ MARQUEE STRIP ============ -->
+<div class="bg-gold-light/20 border-y border-gold/20 py-3 overflow-hidden">
+  <div class="flex w-max marquee-track text-forest/70 text-sm tracking-wide">
+    <div class="flex items-center gap-10 pr-10">
+      <span>✦ Handcrafted Daily</span><span>✦ Premium French Ingredients</span><span>✦ كيكات فاخرة بالطلب</span><span>✦ توصيل داخل القاهرة الكبرى</span><span>✦ Since 2009</span>
+    </div>
+    <div class="flex items-center gap-10 pr-10">
+      <span>✦ Handcrafted Daily</span><span>✦ Premium French Ingredients</span><span>✦ كيكات فاخرة بالطلب</span><span>✦ توصيل داخل القاهرة الكبرى</span><span>✦ Since 2009</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CATEGORIES ============ -->
+<section id="categories" class="py-24 md:py-32 bg-ivory scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6 md:px-10">
+    <div class="reveal text-center max-w-xl mx-auto mb-16">
+      <span class="text-gold-deep text-xs uppercase tracking-[0.3em]">Our Categories</span>
+      <h2 class="font-display text-4xl md:text-5xl text-forest mt-3 mb-4">أقسام الحلويات الغربية</h2>
+      <p class="text-ink/60">أربعة عوالم من الفخامة، كل واحدة بطابعها الخاص وتميزها الفريد</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+      <!-- 1 -->
+      <div class="reveal d1 card-hover group rounded-3xl bg-ivory-soft border border-gold/15 p-8 flex flex-col items-center text-center">
+        <div class="w-20 h-20 rounded-full bg-forest/5 border border-gold/20 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-deep"><use href="#ic-cake"/></svg>
+        </div>
+        <h3 class="font-display text-xl text-forest mb-1">Luxury Cakes</h3>
+        <p class="arabic text-gold-deep text-sm mb-3">كيكات فاخرة</p>
+        <p class="text-ink/55 text-sm leading-relaxed mb-6">طبقات غنية من الكريمة والشوكولاتة البلجيكية، مصممة لتُبهر في أرقى المناسبات.</p>
+        <button data-explore="cakes" class="mt-auto inline-flex items-center gap-2 text-forest font-semibold text-sm group-hover:text-gold-deep transition-colors">
+          Explore Menu <span class="transition-transform group-hover:translate-x-1">←</span>
+        </button>
+      </div>
+
+      <!-- 2 (dark variant) -->
+      <div class="reveal d2 card-hover group rounded-3xl bg-forest text-ivory border border-gold/20 p-8 flex flex-col items-center text-center">
+        <div class="w-20 h-20 rounded-full bg-ivory/5 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold/15 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-light"><use href="#ic-tart"/></svg>
+        </div>
+        <h3 class="font-display text-xl mb-1">Premium Tarts</h3>
+        <p class="arabic text-gold-light text-sm mb-3">تارت فاخر</p>
+        <p class="text-ivory/55 text-sm leading-relaxed mb-6">قشرة هشة وفاكهة طازجة مع كريمة فرنسية ناعمة في كل قضمة.</p>
+        <button data-explore="tarts" class="mt-auto inline-flex items-center gap-2 text-gold-light font-semibold text-sm group-hover:text-gold transition-colors">
+          Explore Menu <span class="transition-transform group-hover:translate-x-1">←</span>
+        </button>
+      </div>
+
+      <!-- 3 -->
+      <div class="reveal d3 card-hover group rounded-3xl bg-ivory-soft border border-gold/15 p-8 flex flex-col items-center text-center">
+        <div class="w-20 h-20 rounded-full bg-forest/5 border border-gold/20 flex items-center justify-center mb-6 group-hover:bg-gold/10 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-deep"><use href="#ic-macaron"/></svg>
+        </div>
+        <h3 class="font-display text-xl text-forest mb-1">French Macarons</h3>
+        <p class="arabic text-gold-deep text-sm mb-3">ماكرون فرنسي</p>
+        <p class="text-ink/55 text-sm leading-relaxed mb-6">قشرتان هشتان وحشوة كريمية بنكهات مختارة بعناية فائقة.</p>
+        <button data-explore="macarons" class="mt-auto inline-flex items-center gap-2 text-forest font-semibold text-sm group-hover:text-gold-deep transition-colors">
+          Explore Menu <span class="transition-transform group-hover:translate-x-1">←</span>
+        </button>
+      </div>
+
+      <!-- 4 (dark variant) -->
+      <div class="reveal d4 card-hover group rounded-3xl bg-forest text-ivory border border-gold/20 p-8 flex flex-col items-center text-center">
+        <div class="w-20 h-20 rounded-full bg-ivory/5 border border-gold/30 flex items-center justify-center mb-6 group-hover:bg-gold/15 transition-colors">
+          <svg viewBox="0 0 100 100" class="w-11 h-11 text-gold-light"><use href="#ic-eclair"/></svg>
+        </div>
+        <h3 class="font-display text-xl mb-1">Eclairs &amp; Choux</h3>
+        <p class="arabic text-gold-light text-sm mb-3">إكلير وشو</p>
+        <p class="text-ivory/55 text-sm leading-relaxed mb-6">عجينة شو خفيفة محشوة بكريمات فاخرة ومغطاة بجلايز أنيق.</p>
+        <button data-explore="eclairs" class="mt-auto inline-flex items-center gap-2 text-gold-light font-semibold text-sm group-hover:text-gold transition-colors">
+          Explore Menu <span class="transition-transform group-hover:translate-x-1">←</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU / PRODUCTS ============ -->
+<section id="menu" class="py-24 md:py-32 bg-ivory-soft scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6 md:px-10">
+    <div class="reveal text-center max-w-xl mx-auto mb-12">
+      <span class="text-gold-deep text-xs uppercase tracking-[0.3em]">Our Menu</span>
+      <h2 class="font-display text-4xl md:text-5xl text-forest mt-3 mb-4">منيو حلويات أبو السعود</h2>
+      <p class="text-ink/60">اختر تحفتك المفضلة وأضفها إلى السلة بضغطة واحدة</p>
+    </div>
+
+    <!-- filters -->
+    <div class="reveal flex flex-wrap justify-center gap-2 mb-12" id="filter-bar">
+      <button data-filter="all" class="filter-btn active-filter px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">الكل</button>
+      <button data-filter="cakes" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">كيكات</button>
+      <button data-filter="tarts" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">تارت</button>
+      <button data-filter="macarons" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">ماكرون</button>
+      <button data-filter="eclairs" class="filter-btn px-5 py-2.5 rounded-full text-sm border border-gold/30 transition-colors">إكلير</button>
+    </div>
+
+    <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="py-24 md:py-32 bg-ivory scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6 md:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal relative flex justify-center">
+      <div class="w-64 h-64 md:w-80 md:h-80 rounded-full border border-gold/25 flex items-center justify-center bg-forest/[0.03]">
+        <div class="w-48 h-48 md:w-60 md:h-60 rounded-full border border-gold/15 flex items-center justify-center">
+          <svg viewBox="0 0 100 100" class="w-24 h-24 md:w-28 md:h-28 text-gold-deep"><use href="#ic-macaron"/></svg>
+        </div>
+      </div>
+      <span class="absolute -top-3 right-6 w-3 h-3 rounded-full bg-gold floaty"></span>
+      <span class="absolute bottom-8 -left-2 w-2.5 h-2.5 rounded-full bg-gold-light floaty" style="animation-delay:1.2s"></span>
+    </div>
+
+    <div>
+      <span class="reveal text-gold-deep text-xs uppercase tracking-[0.3em]">Our Story</span>
+      <h2 class="reveal d1 font-display text-4xl md:text-5xl text-forest mt-3 mb-6">حكاية شغف بدأت من قلب القاهرة</h2>
+      <p class="reveal d2 text-ink/65 leading-relaxed mb-6">
+        بدأت حلويات أبو السعود كحلم صغير لعائلة عاشقة للحلويات الغربية، ليتحول اليوم إلى علامة فاخرة يثق بها العملاء في أرقى المناسبات. نستخدم أجود المكونات المستوردة، ونحرص على التحضير اليومي الطازج بأيدي شيفات متخصصين.
+      </p>
+      <p class="reveal d3 text-ink/65 leading-relaxed mb-10">
+        كل قطعة تخرج من مطبخنا تحمل توقيعنا الخاص: توازن دقيق بين الحرفية الفرنسية الكلاسيكية ولمسة عصرية أنيقة.
+      </p>
+
+      <div class="reveal d4 grid grid-cols-3 gap-6 border-t border-gold/15 pt-8">
+        <div>
+          <div class="font-display text-3xl text-forest"><span class="counter" data-target="15">0</span>+</div>
+          <div class="text-[11px] text-ink/50 uppercase tracking-wide mt-1">سنوات خبرة</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl text-forest"><span class="counter" data-target="500">0</span>+</div>
+          <div class="text-[11px] text-ink/50 uppercase tracking-wide mt-1">عميل سعيد</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl text-forest"><span class="counter" data-target="98">0</span>%</div>
+          <div class="text-[11px] text-ink/50 uppercase tracking-wide mt-1">مكونات فاخرة</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="py-24 bg-forest scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6 md:px-10">
+    <div class="reveal text-center max-w-xl mx-auto mb-14">
+      <span class="text-gold-light text-xs uppercase tracking-[0.3em]">Testimonials</span>
+      <h2 class="font-display text-4xl text-ivory mt-3">آراء عملائنا</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="reveal d1 bg-ivory/5 border border-gold/15 rounded-3xl p-7">
+        <div class="flex gap-1 text-gold mb-4">★★★★★</div>
+        <p class="text-ivory/75 text-sm leading-relaxed mb-5">طلبت تورتة عيد ميلاد وكانت أجمل من الصور، الطعم راقي جدًا والتسليم في الوقت تمامًا.</p>
+        <div class="font-display text-gold-light text-sm">— مريم عادل</div>
+      </div>
+      <div class="reveal d2 bg-ivory/5 border border-gold/15 rounded-3xl p-7">
+        <div class="flex gap-1 text-gold mb-4">★★★★★</div>
+        <p class="text-ivory/75 text-sm leading-relaxed mb-5">الماكرون من أرقى ما تذوقت في القاهرة، قوام مثالي ونكهات متوازنة. تجربة فاخرة بحق.</p>
+        <div class="font-display text-gold-light text-sm">— كريم حسن</div>
+      </div>
+      <div class="reveal d3 bg-ivory/5 border border-gold/15 rounded-3xl p-7">
+        <div class="flex gap-1 text-gold mb-4">★★★★★</div>
+        <p class="text-ivory/75 text-sm leading-relaxed mb-5">تارت الليمون رائعة والتعامل محترف من الطلب عبر الواتساب حتى التوصيل. بالتوفيق دائمًا.</p>
+        <div class="font-display text-gold-light text-sm">— سارة محمود</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISIT / CONTACT BAND ============ -->
+<section id="visit" class="py-20 bg-gold-light/15 border-y border-gold/20 scroll-mt-24">
+  <div class="mx-auto max-w-5xl px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-right">
+    <div class="reveal">
+      <h3 class="font-display text-2xl md:text-3xl text-forest mb-2">زورونا أو اطلبوا الآن</h3>
+      <p class="text-ink/60 text-sm">شارع التحرير، الدقي، القاهرة — يوميًا من 10ص حتى 12م</p>
+    </div>
+    <a id="visit-whatsapp" href="#" target="_blank" class="reveal d1 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5a] text-white px-7 py-4 rounded-full font-semibold text-sm shadow-lg transition-colors">
+      <svg class="w-5 h-5"><use href="#ic-whatsapp"/></svg>
+      تواصل عبر واتساب
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-forest-deep text-ivory pt-16 pb-8">
+  <div class="mx-auto max-w-7xl px-6 md:px-10 grid md:grid-cols-4 gap-10 mb-12">
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <svg viewBox="0 0 60 60" class="w-9 h-9">
+          <circle cx="30" cy="30" r="27" stroke="#cca464" stroke-width="1.6" fill="none"/>
+          <text x="30" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="17" fill="#e9cd96">A·S</text>
+        </svg>
+        <span class="font-arabic text-lg">أبو السعود</span>
+      </div>
+      <p class="text-ivory/50 text-sm leading-relaxed">حلويات غربية فاخرة، حرفية فرنسية بلمسة مصرية أصيلة منذ عام 2009.</p>
+    </div>
+
+    <div>
+      <h4 class="font-display text-gold-light mb-4">روابط سريعة</h4>
+      <ul class="space-y-2 text-sm text-ivory/55">
+        <li><a href="#categories" class="hover:text-gold-light transition-colors">الأقسام</a></li>
+        <li><a href="#menu" class="hover:text-gold-light transition-colors">المنيو</a></li>
+        <li><a href="#about" class="hover:text-gold-light transition-colors">قصتنا</a></li>
+        <li><a href="#visit" class="hover:text-gold-light transition-colors">تواصل معنا</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-display text-gold-light mb-4">تواصل معنا</h4>
+      <ul class="space-y-2 text-sm text-ivory/55">
+        <li>+20 12 3456 7890</li>
+        <li>orders@aboelsaud-sweets.com</li>
+        <li>شارع التحرير، الدقي، القاهرة</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-display text-gold-light mb-4">مواعيد العمل</h4>
+      <ul class="space-y-2 text-sm text-ivory/55">
+        <li>يوميًا: 10:00 ص – 12:00 م</li>
+        <li>الجمعة: 2:00 م – 12:00 م</li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-ivory/10 pt-6 text-center text-ivory/40 text-xs">
+    © 2026 Abo El-Saud Sweets — حلويات أبو السعود. جميع الحقوق محفوظة.
+  </div>
+</footer>
+
+<!-- ============ FLOATING WHATSAPP BUTTON ============ -->
+<a id="float-whatsapp" href="#" target="_blank" class="fixed bottom-6 left-6 z-40 w-14 h-14 rounded-full bg-[#25D366] pulse-wa flex items-center justify-center text-white shadow-xl" aria-label="WhatsApp">
+  <svg class="w-7 h-7"><use href="#ic-whatsapp"/></svg>
+</a>
+
+<!-- ============ CART OVERLAY + SIDEBAR ============ -->
+<div id="cart-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[70] opacity-0 invisible"></div>
+
+<aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[440px] bg-ivory z-[71] translate-x-full flex flex-col shadow-2xl">
+  <div class="flex items-center justify-between px-6 py-5 border-b border-gold/15 bg-forest text-ivory">
+    <div>
+      <h3 class="font-display text-xl">سلة المشتريات</h3>
+      <p class="text-ivory/50 text-xs">Your Cart</p>
+    </div>
+    <button id="cart-close" class="w-9 h-9 rounded-full border border-gold/30 flex items-center justify-center hover:bg-ivory/10 transition-colors" aria-label="Close cart">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+
+  <div class="flex-1 overflow-y-auto px-6 py-5" id="cart-body">
+    <!-- injected: items list OR empty state -->
+  </div>
+
+  <div id="cart-footer" class="border-t border-gold/15 px-6 py-5 bg-ivory-soft">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-ink/60 text-sm">الإجمالي</span>
+      <span id="cart-total" class="font-display text-2xl text-forest">0 ج.م</span>
+    </div>
+
+    <form id="checkout-form" class="space-y-3">
+      <div>
+        <label class="block text-xs text-ink/50 mb-1">الاسم الكامل *</label>
+        <input required id="cust-name" type="text" placeholder="مثال: أحمد محمد" class="w-full rounded-xl border border-gold/25 bg-white px-4 py-3 text-sm focus:border-gold outline-none">
+      </div>
+      <div>
+        <label class="block text-xs text-ink/50 mb-1">رقم الهاتف *</label>
+        <input required id="cust-phone" type="tel" pattern="[0-9+\s]{8,15}" placeholder="01012345678" class="w-full rounded-xl border border-gold/25 bg-white px-4 py-3 text-sm focus:border-gold outline-none">
+      </div>
+      <div>
+        <label class="block text-xs text-ink/50 mb-1">عنوان التوصيل *</label>
+        <textarea required id="cust-address" rows="2" placeholder="الحي، الشارع، رقم المبنى..." class="w-full rounded-xl border border-gold/25 bg-white px-4 py-3 text-sm focus:border-gold outline-none resize-none"></textarea>
+      </div>
+
+      <button type="submit" id="order-whatsapp-btn" class="w-full mt-2 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-semibold py-4 rounded-full text-sm transition-colors shadow-lg">
+        <svg class="w-5 h-5"><use href="#ic-whatsapp"/></svg>
+        إرسال الطلب عبر واتساب
+      </button>
+      <p class="text-center text-[11px] text-ink/40">سيتم تحويلك إلى واتساب لتأكيد الطلب مباشرة مع المتجر</p>
+    </form>
+  </div>
+</aside>
+
+<!-- ============ TOAST ============ -->
+<div id="toast" class="toast fixed bottom-6 right-6 z-[80] bg-forest text-ivory pl-5 pr-4 py-3 rounded-full shadow-2xl flex items-center gap-2 text-sm">
+  <svg class="w-4 h-4 text-gold-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-text">تمت الإضافة إلى السلة</span>
+</div>
+
+<script>
+/* ======================= CONFIG ======================= */
+const WHATSAPP_NUMBER = "201234567890"; // TODO: replace with the real shop WhatsApp number (country code + number, no + or 00)
+
+/* ======================= DATA ======================= */
+const PRODUCTS = [
+  { id:1, cat:'cakes',    nameAr:'تشيز كيك التوت الأزرق',        nameEn:'Blueberry Cheesecake',        price:320, icon:'ic-cake',    badge:'Best Seller' },
+  { id:2, cat:'cakes',    nameAr:'كيكة الشوكولاتة البلجيكية',     nameEn:'Belgian Chocolate Cake',      price:350, icon:'ic-cake',    badge:null },
+  { id:3, cat:'tarts',    nameAr:'تارت الليمون الفرنسي',         nameEn:'French Lemon Tart',           price:180, icon:'ic-tart',    badge:null },
+  { id:4, cat:'tarts',    nameAr:'تارت الفراولة الفاخر',         nameEn:'Strawberry Tart',             price:200, icon:'ic-tart',    badge:'Best Seller' },
+  { id:5, cat:'macarons', nameAr:'علبة ماكرون فاخرة (6 ح)',       nameEn:'Luxury Macaron Box (6pc)',    price:150, icon:'ic-macaron', badge:null },
+  { id:6, cat:'macarons', nameAr:'علبة ماكرون فاخرة (12 ح)',      nameEn:'Luxury Macaron Box (12pc)',   price:280, icon:'ic-macaron', badge:'Best Seller' },
+  { id:7, cat:'eclairs',  nameAr:'إكلير الفانيليا الكلاسيكي',     nameEn:'Classic Vanilla Eclair',      price:65,  icon:'ic-eclair',  badge:null },
+  { id:8, cat:'eclairs',  nameAr:'شو الكراميل المملح',           nameEn:'Salted Caramel Choux',        price:70,  icon:'ic-eclair',  badge:null },
+];
+
+let cart = []; // { id, qty }
+
+/* ======================= RENDER PRODUCTS ======================= */
+const grid = document.getElementById('product-grid');
+function renderProducts(){
+  grid.innerHTML = PRODUCTS.map((p,i)=>`
+    <div class="product-card reveal d${(i%4)+1} show card-hover rounded-3xl bg-white border border-gold/15 p-6 flex flex-col" data-cat="${p.cat}">
+      <div class="relative mb-5">
+        ${p.badge ? `<span class="absolute -top-2 -right-2 bg-gold text-forest text-[10px] font-bold px-2.5 py-1 rounded-full shadow">${p.badge}</span>` : ''}
+        <div class="w-full h-32 rounded-2xl bg-ivory-soft flex items-center justify-center">
+          <svg viewBox="0 0 100 100" class="w-16 h-16 text-gold-deep"><use href="#${p.icon}"/></svg>
+        </div>
+      </div>
+      <h4 class="font-display text-lg text-forest mb-0.5">${p.nameEn}</h4>
+      <p class="arabic text-gold-deep text-sm mb-3">${p.nameAr}</p>
+      <div class="flex items-center justify-between mt-auto pt-3">
+        <span class="font-display text-lg text-forest">${p.price} ج.م</span>
+        <button data-add="${p.id}" class="add-btn relative overflow-hidden w-10 h-10 rounded-full bg-forest text-ivory hover:bg-gold hover:text-forest flex items-center justify-center transition-colors" aria-label="Add to cart">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+renderProducts();
+
+/* ======================= FILTER ======================= */
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    filterBtns.forEach(b=>b.classList.remove('active-filter'));
+    btn.classList.add('active-filter');
+    const cat = btn.dataset.filter;
+    document.querySelectorAll('.product-card').forEach(card=>{
+      const match = cat === 'all' || card.dataset.cat === cat;
+      card.classList.toggle('hidden-cat', !match);
+    });
+  });
+});
+function styleFilterButtons(){
+  filterBtns.forEach(b=>{
+    if(b.classList.contains('active-filter')){
+      b.classList.add('bg-forest','text-ivory'); b.classList.remove('text-forest');
+    } else {
+      b.classList.remove('bg-forest','text-ivory'); b.classList.add('text-forest');
+    }
+  });
+}
+filterBtns.forEach(b=>b.addEventListener('click', styleFilterButtons));
+document.querySelector('[data-filter="all"]').classList.add('active-filter');
+styleFilterButtons();
+
+/* explore-menu buttons on category cards */
+document.querySelectorAll('[data-explore]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const cat = btn.dataset.explore;
+    document.getElementById('menu').scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>{
+      const target = document.querySelector(`.filter-btn[data-filter="${cat}"]`);
+      if(target) target.click();
+    }, 450);
+  });
+});
+
+/* ======================= CART LOGIC ======================= */
+const cartBody   = document.getElementById('cart-body');
+const cartTotal  = document.getElementById('cart-total');
+const cartCount  = document.getElementById('cart-count');
+const cartOverlay= document.getElementById('cart-overlay');
+const cartSidebar= document.getElementById('cart-sidebar');
+
+function findProduct(id){ return PRODUCTS.find(p=>p.id===id); }
+
+function addToCart(id){
+  const entry = cart.find(c=>c.id===id);
+  if(entry){ entry.qty++; } else { cart.push({id, qty:1}); }
+  renderCart();
+  showToast('تمت الإضافة إلى السلة ✓');
+}
+function changeQty(id, delta){
+  const entry = cart.find(c=>c.id===id);
+  if(!entry) return;
+  entry.qty += delta;
+  if(entry.qty <= 0){ cart = cart.filter(c=>c.id!==id); }
+  renderCart();
+}
+function removeFromCart(id){
+  cart = cart.filter(c=>c.id!==id);
+  renderCart();
+}
+
+function cartTotalPrice(){
+  return cart.reduce((sum,c)=>{
+    const p = findProduct(c.id);
+    return sum + (p ? p.price * c.qty : 0);
+  },0);
+}
+
+function renderCart(){
+  const totalItems = cart.reduce((s,c)=>s+c.qty,0);
+  cartCount.textContent = totalItems;
+
+  if(cart.length === 0){
+    cartBody.innerHTML = `
+      <div class="h-full flex flex-col items-center justify-center text-center py-16">
+        <svg viewBox="0 0 100 100" class="w-16 h-16 text-gold/40 mb-4"><use href="#ic-tart"/></svg>
+        <p class="text-ink/50 text-sm mb-1">سلتك فارغة الآن</p>
+        <p class="text-ink/35 text-xs mb-5">أضف بعض الحلويات الفاخرة لتبدأ طلبك</p>
+        <button onclick="document.getElementById('cart-close').click(); document.getElementById('menu').scrollIntoView({behavior:'smooth'});" class="px-5 py-2.5 rounded-full bg-forest text-ivory text-xs font-semibold">تصفح المنيو</button>
+      </div>`;
+  } else {
+    cartBody.innerHTML = cart.map(c=>{
+      const p = findProduct(c.id);
+      return `
+      <div class="flex items-center gap-4 py-4 border-b border-gold/10">
+        <div class="w-14 h-14 rounded-xl bg-ivory-soft flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 100 100" class="w-8 h-8 text-gold-deep"><use href="#${p.icon}"/></svg>
+        </div>
+        <div class="flex-1">
+          <div class="font-display text-sm text-forest">${p.nameEn}</div>
+          <div class="arabic text-gold-deep text-xs">${p.nameAr}</div>
+          <div class="text-ink/50 text-xs mt-1">${p.price} ج.م × ${c.qty} = <span class="text-forest font-semibold">${p.price*c.qty} ج.م</span></div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button data-qty="-1" data-id="${c.id}" class="qty-btn w-7 h-7 rounded-full border border-gold/30 text-forest flex items-center justify-center text-sm hover:bg-gold/10">−</button>
+          <span class="w-5 text-center text-sm">${c.qty}</span>
+          <button data-qty="1" data-id="${c.id}" class="qty-btn w-7 h-7 rounded-full border border-gold/30 text-forest flex items-center justify-center text-sm hover:bg-gold/10">+</button>
+        </div>
+        <button data-remove="${c.id}" class="text-ink/30 hover:text-red-500 transition-colors" aria-label="Remove">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+        </button>
+      </div>`;
+    }).join('');
+  }
+
+  cartTotal.textContent = cartTotalPrice() + ' ج.م';
+  document.getElementById('cart-footer').style.display = cart.length === 0 ? 'none' : 'block';
+
+  cartBody.querySelectorAll('[data-qty]').forEach(btn=>{
+    btn.addEventListener('click', ()=> changeQty(parseInt(btn.dataset.id), parseInt(btn.dataset.qty)));
+  });
+  cartBody.querySelectorAll('[data-remove]').forEach(btn=>{
+    btn.addEventListener('click', ()=> removeFromCart(parseInt(btn.dataset.remove)));
+  });
+}
+renderCart();
+
+grid.addEventListener('click', (e)=>{
+  const btn = e.target.closest('[data-add]');
+  if(!btn) return;
+  addToCart(parseInt(btn.dataset.add));
+});
+
+/* open / close cart */
+function openCart(){
+  cartOverlay.classList.remove('invisible');
+  cartOverlay.classList.remove('opacity-0');
+  cartSidebar.classList.remove('translate-x-full');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart(){
+  cartOverlay.classList.add('opacity-0');
+  setTimeout(()=>cartOverlay.classList.add('invisible'), 400);
+  cartSidebar.classList.add('translate-x-full');
+  document.body.style.overflow = '';
+}
+document.getElementById('cart-btn').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeCart(); });
+
+/* ======================= TOAST ======================= */
+let toastTimer;
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-text').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> toast.classList.remove('show'), 2200);
+}
+
+/* ======================= CHECKOUT -> WHATSAPP ======================= */
+document.getElementById('checkout-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  if(cart.length === 0){ showToast('السلة فارغة، أضف بعض الحلويات أولاً'); return; }
+  if(!this.checkValidity()){ this.reportValidity(); return; }
+
+  const name = document.getElementById('cust-name').value.trim();
+  const phone = document.getElementById('cust-phone').value.trim();
+  const address = document.getElementById('cust-address').value.trim();
+
+  let lines = [];
+  lines.push('السلام عليكم، أرغب في تأكيد الطلب التالي من *حلويات أبو السعود*:');
+  lines.push('');
+  lines.push('🛒 *تفاصيل الطلب:*');
+  cart.forEach((c,i)=>{
+    const p = findProduct(c.id);
+    lines.push(`${i+1}. ${p.nameAr} (${p.nameEn}) × ${c.qty} = ${p.price*c.qty} ج.م`);
+  });
+  lines.push('');
+  lines.push(`💰 *الإجمالي:* ${cartTotalPrice()} ج.م`);
+  lines.push('');
+  lines.push(`👤 *الاسم:* ${name}`);
+  lines.push(`📞 *الهاتف:* ${phone}`);
+  lines.push(`📍 *عنوان التوصيل:* ${address}`);
+  lines.push('');
+  lines.push('شكراً لكم 🌿');
+
+  const message = encodeURIComponent(lines.join('\n'));
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+});
+
+/* generic whatsapp links (footer + floating button) */
+const generalMsg = encodeURIComponent('السلام عليكم، أرغب في الاستفسار عن منتجات حلويات أبو السعود.');
+document.getElementById('float-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${generalMsg}`;
+document.getElementById('visit-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${generalMsg}`;
+
+/* ======================= NAV: scrollspy + sliding pill ======================= */
+const navLinks = document.querySelectorAll('#desktop-nav [data-nav]');
+const navPill = document.getElementById('nav-pill');
+function movePill(link){
+  if(!link) return;
+  navPill.style.width = link.offsetWidth + 'px';
+  navPill.style.transform = `translateX(${link.offsetLeft}px)`;
+}
+const sections = ['hero','categories','menu','about','visit'].map(id=>document.getElementById(id));
+function setActiveNav(id){
+  let active = null;
+  navLinks.forEach(l=>{
+    if(l.getAttribute('href') === '#'+id) active = l;
+  });
+  if(active) movePill(active);
+}
+const spy = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ setActiveNav(entry.target.id); }
+  });
+}, { rootMargin: '-40% 0px -50% 0px' });
+sections.forEach(s=> s && spy.observe(s));
+window.addEventListener('load', ()=> movePill(navLinks[0]));
+window.addEventListener('resize', ()=>{
+  const current = [...navLinks].find(l=> l.classList.contains('is-current')) || navLinks[0];
+  movePill(current);
+});
+
+/* ======================= MOBILE NAV ======================= */
+const mobileNav = document.getElementById('mobile-nav');
+document.getElementById('mobile-menu-btn').addEventListener('click', ()=> mobileNav.classList.remove('translate-x-full'));
+document.getElementById('mobile-nav-close').addEventListener('click', ()=> mobileNav.classList.add('translate-x-full'));
+document.querySelectorAll('[data-nav-mobile]').forEach(l=> l.addEventListener('click', ()=> mobileNav.classList.add('translate-x-full')));
+
+/* ======================= SCROLL REVEAL ======================= */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ entry.target.classList.add('show'); revealObserver.unobserve(entry.target); }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el=> revealObserver.observe(el));
+
+/* hero reveal immediately on load (staggered) */
+window.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('#hero .reveal').forEach(el=> el.classList.add('show'));
+});
+
+/* ======================= COUNT-UP STATS ======================= */
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      let current = 0;
+      const step = Math.max(1, Math.round(target/40));
+      const tick = ()=>{
+        current += step;
+        if(current >= target){ el.textContent = target; }
+        else { el.textContent = current; requestAnimationFrame(tick); }
+      };
+      tick();
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.4 });
+counters.forEach(c=> counterObserver.observe(c));
+</script>
+</body>
+</html>
