@@ -63,19 +63,10 @@
   @keyframes marquee{ 0%{ transform:translateX(0) } 100%{ transform:translateX(-50%) } }
   .marquee-track{ animation:marquee 28s linear infinite; }
 
-  @keyframes pulse-ring{ 0%{ box-shadow:0 0 0 0 rgba(37,211,102,.55) } 100%{ box-shadow:0 0 0 16px rgba(37,211,102,0) } }
-  .pulse-wa{ animation:pulse-ring 2.2s cubic-bezier(.4,0,.6,1) infinite; }
-
   .nav-pill{ position:absolute; top:4px; bottom:4px; left:0; border-radius:9999px; background:rgba(204,164,100,.16); transition:transform .4s cubic-bezier(.22,1,.36,1), width .4s cubic-bezier(.22,1,.36,1); }
 
   .card-hover{ transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease; }
   .card-hover:hover{ transform:translateY(-8px); box-shadow:0 24px 48px -12px rgba(27,46,30,.18); }
-
-  #cart-overlay{ transition:opacity .4s ease; }
-  #cart-sidebar{ transition:transform .45s cubic-bezier(.22,1,.36,1); }
-
-  .toast{ transform:translateY(140%); opacity:0; transition:transform .45s cubic-bezier(.22,1,.36,1), opacity .45s ease; }
-  .toast.show{ transform:translateY(0); opacity:1; }
 
   input:focus, textarea:focus, button:focus-visible, a:focus-visible{ outline:2px solid #cca464; outline-offset:2px; }
 
@@ -125,16 +116,6 @@
     <path d="M2 12 Q20 2 58 12 Q20 22 2 12 Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
     <line x1="2" y1="12" x2="58" y2="12" stroke="currentColor" stroke-width="1.2"/>
   </symbol>
-
-  <symbol id="ic-cart" viewBox="0 0 24 24">
-    <path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.4a2 2 0 0 0 2-1.6L21 8H6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="9" cy="21" r="1.4" fill="currentColor"/>
-    <circle cx="18" cy="21" r="1.4" fill="currentColor"/>
-  </symbol>
-
-  <symbol id="ic-whatsapp" viewBox="0 0 32 32">
-    <path fill="currentColor" d="M16.04 3C9.1 3 3.46 8.64 3.46 15.58c0 2.62.78 5.04 2.12 7.06L4 29l6.55-1.72a12.46 12.46 0 0 0 5.49 1.27c6.94 0 12.58-5.64 12.58-12.57C28.62 8.64 22.98 3 16.04 3Zm0 22.85c-1.92 0-3.74-.5-5.32-1.45l-.38-.22-3.89 1.02 1.04-3.8-.25-.39a10.3 10.3 0 0 1-1.6-5.43c0-5.71 4.65-10.36 10.4-10.36 5.74 0 10.39 4.65 10.39 10.36 0 5.72-4.65 10.27-10.39 10.27Zm5.7-7.7c-.31-.16-1.85-.91-2.13-1.02-.29-.1-.5-.16-.71.16-.21.31-.81 1.02-.99 1.23-.18.21-.37.23-.68.08-1.84-.92-3.05-1.64-4.26-3.72-.32-.55.32-.51.92-1.7.1-.21.05-.39-.05-.55-.1-.16-.71-1.7-.97-2.34-.26-.62-.52-.54-.71-.55-.18-.01-.39-.01-.6-.01-.21 0-.55.08-.84.39-.29.31-1.12 1.1-1.12 2.68 0 1.58 1.15 3.11 1.31 3.32.16.21 2.23 3.4 5.41 4.63 2.68 1.05 3.23.84 3.81.78.58-.05 1.85-.76 2.11-1.49.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.37Z"/>
-  </symbol>
 </defs>
 </svg>
 
@@ -143,13 +124,10 @@
   <div class="mx-auto max-w-7xl px-5 md:px-10">
     <div class="mt-4 flex items-center justify-between rounded-full border border-gold/25 bg-forest/85 backdrop-blur-xl px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
 
-      <!-- Logo -->
+      <!-- Logo: صورة الشعار بدل A·S -->
       <a href="#hero" class="flex items-center gap-3 group">
-        <svg viewBox="0 0 60 60" class="w-9 h-9 md:w-10 md:h-10">
-          <circle cx="30" cy="30" r="27" stroke="#cca464" stroke-width="1.6" fill="none"/>
-          <circle cx="30" cy="30" r="21" stroke="#cca464" stroke-width="1" fill="none" opacity=".6"/>
-          <text x="30" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="17" fill="#e9cd96">A·S</text>
-        </svg>
+        <!-- ضع شعارك في assets/logo.png أو غيّر المسار هنا -->
+        <img src="assets/logo.png" alt="شعار حلويات أبو السعود" class="w-9 h-9 md:w-10 md:h-10 object-contain rounded-full">
         <div class="leading-tight">
           <div class="font-arabic text-lg md:text-xl text-ivory tracking-wide">أبو السعود</div>
           <div class="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-gold-light/80">Abo El-Saud Sweets</div>
@@ -166,12 +144,8 @@
         <a data-nav href="#visit" class="relative z-10 px-4 py-2 rounded-full text-ivory/85 hover:text-gold-light transition-colors">تواصل معنا</a>
       </nav>
 
-      <!-- Right actions -->
+      <!-- Right actions: فقط زر القوائم (أزلت زر السلة والواتساب) -->
       <div class="flex items-center gap-2 md:gap-3">
-        <button id="cart-btn" aria-label="Open cart" class="relative w-11 h-11 rounded-full bg-gold/10 hover:bg-gold/20 border border-gold/30 flex items-center justify-center text-gold-light transition-colors">
-          <svg class="w-5 h-5"><use href="#ic-cart"/></svg>
-          <span id="cart-count" class="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-gold text-forest text-[11px] font-bold flex items-center justify-center shadow">0</span>
-        </button>
         <button id="mobile-menu-btn" class="lg:hidden w-11 h-11 rounded-full border border-gold/30 flex items-center justify-center text-gold-light" aria-label="Menu">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
         </button>
@@ -344,7 +318,7 @@
     <div class="reveal text-center max-w-xl mx-auto mb-12">
       <span class="text-gold-deep text-xs uppercase tracking-[0.3em]">Our Menu</span>
       <h2 class="font-display text-4xl md:text-5xl text-forest mt-3 mb-4">منيو حلويات أبو السعود</h2>
-      <p class="text-ink/60">اختر تحفتك المفضلة وأضفها إلى السلة بضغطة واحدة</p>
+      <p class="text-ink/60">اختر تحفتك المفضلة</p>
     </div>
 
     <!-- filters -->
@@ -423,7 +397,7 @@
       </div>
       <div class="reveal d3 bg-ivory/5 border border-gold/15 rounded-3xl p-7">
         <div class="flex gap-1 text-gold mb-4">★★★★★</div>
-        <p class="text-ivory/75 text-sm leading-relaxed mb-5">تارت الليمون رائعة والتعامل محترف من الطلب عبر الواتساب حتى التوصيل. بالتوفيق دائمًا.</p>
+        <p class="text-ivory/75 text-sm leading-relaxed mb-5">تارت الليمون رائعة والتعامل محترف من الطلب حتى التوصيل. بالتوفيق دائمًا.</p>
         <div class="font-display text-gold-light text-sm">— سارة محمود</div>
       </div>
     </div>
@@ -434,12 +408,12 @@
 <section id="visit" class="py-20 bg-gold-light/15 border-y border-gold/20 scroll-mt-24">
   <div class="mx-auto max-w-5xl px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-right">
     <div class="reveal">
-      <h3 class="font-display text-2xl md:text-3xl text-forest mb-2">زورونا أو اطلبوا الآن</h3>
+      <h3 class="font-display text-2xl md:text-3xl text-forest mb-2">زورونا أو اتصلوا الآن</h3>
       <p class="text-ink/60 text-sm">شارع التحرير، الدقي، القاهرة — يوميًا من 10ص حتى 12م</p>
     </div>
-    <a id="visit-whatsapp" href="#" target="_blank" class="reveal d1 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5a] text-white px-7 py-4 rounded-full font-semibold text-sm shadow-lg transition-colors">
-      <svg class="w-5 h-5"><use href="#ic-whatsapp"/></svg>
-      تواصل عبر واتساب
+    <!-- استبدلت رابط واتساب برابط اتصال هاتفي بسيط (غير واتساب) -->
+    <a id="visit-contact" href="tel:+201234567890" class="reveal d1 inline-flex items-center gap-2 bg-forest hover:bg-forest/90 text-white px-7 py-4 rounded-full font-semibold text-sm shadow-lg transition-colors">
+      اتصل الآن
     </a>
   </div>
 </section>
@@ -449,10 +423,8 @@
   <div class="mx-auto max-w-7xl px-6 md:px-10 grid md:grid-cols-4 gap-10 mb-12">
     <div>
       <div class="flex items-center gap-3 mb-4">
-        <svg viewBox="0 0 60 60" class="w-9 h-9">
-          <circle cx="30" cy="30" r="27" stroke="#cca464" stroke-width="1.6" fill="none"/>
-          <text x="30" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="17" fill="#e9cd96">A·S</text>
-        </svg>
+        <!-- استبدلت نص الشعار بصورة هنا أيضاً -->
+        <img src="assets/logo.png" alt="شعار حلويات أبو السعود" class="w-9 h-9">
         <span class="font-arabic text-lg">أبو السعود</span>
       </div>
       <p class="text-ivory/50 text-sm leading-relaxed">حلويات غربية فاخرة، حرفية فرنسية بلمسة مصرية أصيلة منذ عام 2009.</p>
@@ -490,68 +462,8 @@
   </div>
 </footer>
 
-<!-- ============ FLOATING WHATSAPP BUTTON ============ -->
-<a id="float-whatsapp" href="#" target="_blank" class="fixed bottom-6 left-6 z-40 w-14 h-14 rounded-full bg-[#25D366] pulse-wa flex items-center justify-center text-white shadow-xl" aria-label="WhatsApp">
-  <svg class="w-7 h-7"><use href="#ic-whatsapp"/></svg>
-</a>
-
-<!-- ============ CART OVERLAY + SIDEBAR ============ -->
-<div id="cart-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[70] opacity-0 invisible"></div>
-
-<aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[440px] bg-ivory z-[71] translate-x-full flex flex-col shadow-2xl">
-  <div class="flex items-center justify-between px-6 py-5 border-b border-gold/15 bg-forest text-ivory">
-    <div>
-      <h3 class="font-display text-xl">سلة المشتريات</h3>
-      <p class="text-ivory/50 text-xs">Your Cart</p>
-    </div>
-    <button id="cart-close" class="w-9 h-9 rounded-full border border-gold/30 flex items-center justify-center hover:bg-ivory/10 transition-colors" aria-label="Close cart">
-      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
-    </button>
-  </div>
-
-  <div class="flex-1 overflow-y-auto px-6 py-5" id="cart-body">
-    <!-- injected: items list OR empty state -->
-  </div>
-
-  <div id="cart-footer" class="border-t border-gold/15 px-6 py-5 bg-ivory-soft">
-    <div class="flex items-center justify-between mb-4">
-      <span class="text-ink/60 text-sm">الإجمالي</span>
-      <span id="cart-total" class="font-display text-2xl text-forest">0 ج.م</span>
-    </div>
-
-    <form id="checkout-form" class="space-y-3">
-      <div>
-        <label class="block text-xs text-ink/50 mb-1">الاسم الكامل *</label>
-        <input required id="cust-name" type="text" placeholder="مثال: أحمد محمد" class="w-full rounded-xl border border-gold/25 bg-white px-4 py-3 text-sm focus:border-gold outline-none">
-      </div>
-      <div>
-        <label class="block text-xs text-ink/50 mb-1">رقم الهاتف *</label>
-        <input required id="cust-phone" type="tel" pattern="[0-9+\s]{8,15}" placeholder="01012345678" class="w-full rounded-xl border border-gold/25 bg-white px-4 py-3 text-sm focus:border-gold outline-none">
-      </div>
-      <div>
-        <label class="block text-xs text-ink/50 mb-1">عنوان التوصيل *</label>
-        <textarea required id="cust-address" rows="2" placeholder="الحي، الشارع، رقم المبنى..." class="w-full rounded-xl border border-gold/25 bg-white px-4 py-3 text-sm focus:border-gold outline-none resize-none"></textarea>
-      </div>
-
-      <button type="submit" id="order-whatsapp-btn" class="w-full mt-2 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-semibold py-4 rounded-full text-sm transition-colors shadow-lg">
-        <svg class="w-5 h-5"><use href="#ic-whatsapp"/></svg>
-        إرسال الطلب عبر واتساب
-      </button>
-      <p class="text-center text-[11px] text-ink/40">سيتم تحويلك إلى واتساب لتأكيد الطلب مباشرة مع المتجر</p>
-    </form>
-  </div>
-</aside>
-
-<!-- ============ TOAST ============ -->
-<div id="toast" class="toast fixed bottom-6 right-6 z-[80] bg-forest text-ivory pl-5 pr-4 py-3 rounded-full shadow-2xl flex items-center gap-2 text-sm">
-  <svg class="w-4 h-4 text-gold-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-  <span id="toast-text">تمت الإضافة إلى السلة</span>
-</div>
-
+<!-- ============ SCRIPT (منقح: أزلت كود السلة والواتساب) ============ -->
 <script>
-/* ======================= CONFIG ======================= */
-const WHATSAPP_NUMBER = "201234567890"; // TODO: replace with the real shop WhatsApp number (country code + number, no + or 00)
-
 /* ======================= DATA ======================= */
 const PRODUCTS = [
   { id:1, cat:'cakes',    nameAr:'تشيز كيك التوت الأزرق',        nameEn:'Blueberry Cheesecake',        price:320, icon:'ic-cake',    badge:'Best Seller' },
@@ -564,9 +476,7 @@ const PRODUCTS = [
   { id:8, cat:'eclairs',  nameAr:'شو الكراميل المملح',           nameEn:'Salted Caramel Choux',        price:70,  icon:'ic-eclair',  badge:null },
 ];
 
-let cart = []; // { id, qty }
-
-/* ======================= RENDER PRODUCTS ======================= */
+/* ======================= RENDER PRODUCTS (بدون زر إضافة للسلة) ======================= */
 const grid = document.getElementById('product-grid');
 function renderProducts(){
   grid.innerHTML = PRODUCTS.map((p,i)=>`
@@ -581,9 +491,8 @@ function renderProducts(){
       <p class="arabic text-gold-deep text-sm mb-3">${p.nameAr}</p>
       <div class="flex items-center justify-between mt-auto pt-3">
         <span class="font-display text-lg text-forest">${p.price} ج.م</span>
-        <button data-add="${p.id}" class="add-btn relative overflow-hidden w-10 h-10 rounded-full bg-forest text-ivory hover:bg-gold hover:text-forest flex items-center justify-center transition-colors" aria-label="Add to cart">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
+        <!-- زر إضافة للسلة أُزيل عمدًا -->
+        <a href="#visit" class="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-full border border-gold/20 text-forest hover:bg-gold/10 transition-colors">اطلب / تواصل</a>
       </div>
     </div>
   `).join('');
@@ -627,159 +536,6 @@ document.querySelectorAll('[data-explore]').forEach(btn=>{
     }, 450);
   });
 });
-
-/* ======================= CART LOGIC ======================= */
-const cartBody   = document.getElementById('cart-body');
-const cartTotal  = document.getElementById('cart-total');
-const cartCount  = document.getElementById('cart-count');
-const cartOverlay= document.getElementById('cart-overlay');
-const cartSidebar= document.getElementById('cart-sidebar');
-
-function findProduct(id){ return PRODUCTS.find(p=>p.id===id); }
-
-function addToCart(id){
-  const entry = cart.find(c=>c.id===id);
-  if(entry){ entry.qty++; } else { cart.push({id, qty:1}); }
-  renderCart();
-  showToast('تمت الإضافة إلى السلة ✓');
-}
-function changeQty(id, delta){
-  const entry = cart.find(c=>c.id===id);
-  if(!entry) return;
-  entry.qty += delta;
-  if(entry.qty <= 0){ cart = cart.filter(c=>c.id!==id); }
-  renderCart();
-}
-function removeFromCart(id){
-  cart = cart.filter(c=>c.id!==id);
-  renderCart();
-}
-
-function cartTotalPrice(){
-  return cart.reduce((sum,c)=>{
-    const p = findProduct(c.id);
-    return sum + (p ? p.price * c.qty : 0);
-  },0);
-}
-
-function renderCart(){
-  const totalItems = cart.reduce((s,c)=>s+c.qty,0);
-  cartCount.textContent = totalItems;
-
-  if(cart.length === 0){
-    cartBody.innerHTML = `
-      <div class="h-full flex flex-col items-center justify-center text-center py-16">
-        <svg viewBox="0 0 100 100" class="w-16 h-16 text-gold/40 mb-4"><use href="#ic-tart"/></svg>
-        <p class="text-ink/50 text-sm mb-1">سلتك فارغة الآن</p>
-        <p class="text-ink/35 text-xs mb-5">أضف بعض الحلويات الفاخرة لتبدأ طلبك</p>
-        <button onclick="document.getElementById('cart-close').click(); document.getElementById('menu').scrollIntoView({behavior:'smooth'});" class="px-5 py-2.5 rounded-full bg-forest text-ivory text-xs font-semibold">تصفح المنيو</button>
-      </div>`;
-  } else {
-    cartBody.innerHTML = cart.map(c=>{
-      const p = findProduct(c.id);
-      return `
-      <div class="flex items-center gap-4 py-4 border-b border-gold/10">
-        <div class="w-14 h-14 rounded-xl bg-ivory-soft flex items-center justify-center flex-shrink-0">
-          <svg viewBox="0 0 100 100" class="w-8 h-8 text-gold-deep"><use href="#${p.icon}"/></svg>
-        </div>
-        <div class="flex-1">
-          <div class="font-display text-sm text-forest">${p.nameEn}</div>
-          <div class="arabic text-gold-deep text-xs">${p.nameAr}</div>
-          <div class="text-ink/50 text-xs mt-1">${p.price} ج.م × ${c.qty} = <span class="text-forest font-semibold">${p.price*c.qty} ج.م</span></div>
-        </div>
-        <div class="flex items-center gap-2">
-          <button data-qty="-1" data-id="${c.id}" class="qty-btn w-7 h-7 rounded-full border border-gold/30 text-forest flex items-center justify-center text-sm hover:bg-gold/10">−</button>
-          <span class="w-5 text-center text-sm">${c.qty}</span>
-          <button data-qty="1" data-id="${c.id}" class="qty-btn w-7 h-7 rounded-full border border-gold/30 text-forest flex items-center justify-center text-sm hover:bg-gold/10">+</button>
-        </div>
-        <button data-remove="${c.id}" class="text-ink/30 hover:text-red-500 transition-colors" aria-label="Remove">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
-        </button>
-      </div>`;
-    }).join('');
-  }
-
-  cartTotal.textContent = cartTotalPrice() + ' ج.م';
-  document.getElementById('cart-footer').style.display = cart.length === 0 ? 'none' : 'block';
-
-  cartBody.querySelectorAll('[data-qty]').forEach(btn=>{
-    btn.addEventListener('click', ()=> changeQty(parseInt(btn.dataset.id), parseInt(btn.dataset.qty)));
-  });
-  cartBody.querySelectorAll('[data-remove]').forEach(btn=>{
-    btn.addEventListener('click', ()=> removeFromCart(parseInt(btn.dataset.remove)));
-  });
-}
-renderCart();
-
-grid.addEventListener('click', (e)=>{
-  const btn = e.target.closest('[data-add]');
-  if(!btn) return;
-  addToCart(parseInt(btn.dataset.add));
-});
-
-/* open / close cart */
-function openCart(){
-  cartOverlay.classList.remove('invisible');
-  cartOverlay.classList.remove('opacity-0');
-  cartSidebar.classList.remove('translate-x-full');
-  document.body.style.overflow = 'hidden';
-}
-function closeCart(){
-  cartOverlay.classList.add('opacity-0');
-  setTimeout(()=>cartOverlay.classList.add('invisible'), 400);
-  cartSidebar.classList.add('translate-x-full');
-  document.body.style.overflow = '';
-}
-document.getElementById('cart-btn').addEventListener('click', openCart);
-document.getElementById('cart-close').addEventListener('click', closeCart);
-cartOverlay.addEventListener('click', closeCart);
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeCart(); });
-
-/* ======================= TOAST ======================= */
-let toastTimer;
-function showToast(msg){
-  const toast = document.getElementById('toast');
-  document.getElementById('toast-text').textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=> toast.classList.remove('show'), 2200);
-}
-
-/* ======================= CHECKOUT -> WHATSAPP ======================= */
-document.getElementById('checkout-form').addEventListener('submit', function(e){
-  e.preventDefault();
-  if(cart.length === 0){ showToast('السلة فارغة، أضف بعض الحلويات أولاً'); return; }
-  if(!this.checkValidity()){ this.reportValidity(); return; }
-
-  const name = document.getElementById('cust-name').value.trim();
-  const phone = document.getElementById('cust-phone').value.trim();
-  const address = document.getElementById('cust-address').value.trim();
-
-  let lines = [];
-  lines.push('السلام عليكم، أرغب في تأكيد الطلب التالي من *حلويات أبو السعود*:');
-  lines.push('');
-  lines.push('🛒 *تفاصيل الطلب:*');
-  cart.forEach((c,i)=>{
-    const p = findProduct(c.id);
-    lines.push(`${i+1}. ${p.nameAr} (${p.nameEn}) × ${c.qty} = ${p.price*c.qty} ج.م`);
-  });
-  lines.push('');
-  lines.push(`💰 *الإجمالي:* ${cartTotalPrice()} ج.م`);
-  lines.push('');
-  lines.push(`👤 *الاسم:* ${name}`);
-  lines.push(`📞 *الهاتف:* ${phone}`);
-  lines.push(`📍 *عنوان التوصيل:* ${address}`);
-  lines.push('');
-  lines.push('شكراً لكم 🌿');
-
-  const message = encodeURIComponent(lines.join('\n'));
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
-});
-
-/* generic whatsapp links (footer + floating button) */
-const generalMsg = encodeURIComponent('السلام عليكم، أرغب في الاستفسار عن منتجات حلويات أبو السعود.');
-document.getElementById('float-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${generalMsg}`;
-document.getElementById('visit-whatsapp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${generalMsg}`;
 
 /* ======================= NAV: scrollspy + sliding pill ======================= */
 const navLinks = document.querySelectorAll('#desktop-nav [data-nav]');
